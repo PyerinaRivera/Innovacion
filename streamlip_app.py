@@ -1,6 +1,12 @@
 import streamlit as st
-c1,c2=st.columns([3,7])
-c1.image('descarga.png',width=200)
-c2.markdown("## Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
-c2.markdown("### Integrantes:")
-c2.markdown("###### - Rivera Cumpa Pyerina")
+st.set_page_config(
+    page_title="Avance 3",
+    page_icon="👋",
+)
+st.write("# Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
+st.sidebar.button("Select a demo above.")
+st.markdown(
+  """Avance 3: Modelos predictivos con aprendizaje automático
+  ### Integrantes:
+  - Rivera Cumpa Pyerina
+  """)
