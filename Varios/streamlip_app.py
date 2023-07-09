@@ -11,3 +11,4 @@ st.markdown(
   """)
 
 st.sidebar.button("Inicio")
+st.sidebar.button("Inicio")
