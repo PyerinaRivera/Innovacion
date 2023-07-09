@@ -1,25 +1,29 @@
 import streamlit as st
-from streamlit_option_menu import option_menu
 
-st.set_page_config(
-    page_title="Avance 3",
-    page_icon="💻",
-)
+def main():
+    # Configurar la barra de navegación
+    st.sidebar.title("Navegación")
+    pages = {
+        "Inicio": show_home,
+        "Página 1": show_page1,
+        "Página 2": show_page2
+    }
+    page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
-st.siderbar:
-	selected = option_menu(
-		menu_title="Menú", 
-		options=["Inicio","Carga","Describir","Visualizar"],)
-if selected=="Inicio":
-	st.write("# Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
-	st.markdown(
-  	"""Avance 3: Modelos predictivos con aprendizaje automático
-  	### Integrantes:
-  	- Rivera Cumpa Pyerina
-  	""")
-if selected=="Carga":
-	st.tittle("Aquí")
-if selected=="Describir":
-	st.tittle("Aquí Descr")
-if selected=="Visualizar":
-	st.tittle("Aquí V")
+    # Mostrar la página seleccionada
+    pages[page]()
+
+def show_home():
+    st.title("Página de Inicio")
+    st.write("¡Bienvenido a la página de inicio!")
+
+def show_page1():
+    st.title("Página 1")
+    st.write("Esta es la página 1.")
+
+def show_page2():
+    st.title("Página 2")
+    st.write("Esta es la página 2.")
+
+if __name__ == "__main__":
+    main()
