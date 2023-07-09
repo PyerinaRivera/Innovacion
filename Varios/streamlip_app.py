@@ -10,9 +10,9 @@ def main():
     st.sidebar.title("Navegación")
     pages = {
         "Inicio": home,
-        "Cargar": pagina1,
-        "Describir": pagina2
-        "Visualizar": pagina3
+        "Cargar": show_pagina1,
+        "Describir": show_pagina2,
+        "Visualizar": show_pagina3
     }
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
@@ -26,11 +26,15 @@ def show_home():
   	### Integrantes:
   	- Rivera Cumpa Pyerina
   	""")
-def show_page1():
+def show_pagina1():
     st.title("Página 1")
     st.write("Esta es la página 1.")
 
-def show_page2():
+def show_pagina2():
+    st.title("Página 2")
+    st.write("Esta es la página 2.")
+
+def show_pagina3():
     st.title("Página 2")
     st.write("Esta es la página 2.")
 
