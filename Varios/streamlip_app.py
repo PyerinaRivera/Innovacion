@@ -6,7 +6,7 @@ st.set_page_config(
     page_icon="💻",
 )
 
-with st.siderbar:
+st.siderbar:
 	selected = option_menu(
 		menu_title="Menú", 
 		options=["Inicio","Carga","Describir","Visualizar"],)
