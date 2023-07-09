@@ -21,11 +21,13 @@ def main():
 
 def show_home():
     st.title ("Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
-	st.markdown(
-  	"""Avance 3: Modelos predictivos con aprendizaje automático
-  	### Integrantes:
-  	- Rivera Cumpa Pyerina
-  	""")
+    st.image("descarga.png", caption="Logo")
+    st.header("Hola mundo")
+    st.write("Este es un ejemplo de una página de inicio en Streamlit.")
+    st.write("Aquí tienes tres párrafos para mostrar contenido adicional.")
+    st.write("¡Este es el primer párrafo!")
+    st.write("¡Este es el segundo párrafo!")
+    st.write("¡Este es el tercer párrafo!")
 
 def show_page1():
     st.title("Página 1")
