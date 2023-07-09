@@ -1,11 +1,5 @@
 import streamlit as st
-from PIL import Image
-import pandas as pd
-import plotly.express as px
-import seaborn as sns
-
-image = Image.open('descarga.png')
-st.image(image, caption='',use_column_width=True)
-
-st.title("Test de riesgo Covid-19 :sunglasses:")
-data=pd.read_csv('DatosAbiertos_consumohdna_202304.csv', encoding='latin-1' , sep=';')
+c1,c2=st.colums([3,7])
+c1.image('descarga.png',width=300)
+c2.markdown("## Hidrandina")
+c2.markdown("###Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
