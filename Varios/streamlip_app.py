@@ -9,7 +9,7 @@ def main():
     # Configurar la barra de navegación
     st.sidebar.title("Navegación")
     pages = {
-        "Inicio": home,
+        "Inicio": show_home,
         "Cargar": show_pagina1,
         "Describir": show_pagina2,
         "Visualizar": show_pagina3
