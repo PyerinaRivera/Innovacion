@@ -9,6 +9,3 @@ st.markdown(
   ### Integrantes:
   - Rivera Cumpa Pyerina
   """)
-
-st.sidebar.button("Inicio")
-st.sidebar.button("Datos")
