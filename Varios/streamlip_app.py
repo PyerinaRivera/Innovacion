@@ -20,9 +20,14 @@ def main():
     pages[page]()
 
 def show_home():
-    st.title ("Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
-    st.image("descarga.png", caption="Logo")
-    st.header("Hola mundo")
+    st.title("Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
+
+    col1, col2 = st.beta_columns([1, 2])
+    with col1:
+        st.image("descarga.png")
+    with col2:
+        st.header("Hola mundo")
+
     st.write("Este es un ejemplo de una página de inicio en Streamlit.")
     st.write("Aquí tienes tres párrafos para mostrar contenido adicional.")
     st.write("¡Este es el primer párrafo!")
