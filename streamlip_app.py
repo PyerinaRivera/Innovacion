@@ -4,7 +4,7 @@ st.set_page_config(
     page_icon="💻",
 )
 st.write("# Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
-st.sidebar.button("Select a demo above.")
+st.sidebar.button("Inicio")
 st.markdown(
   """Avance 3: Modelos predictivos con aprendizaje automático
   ### Integrantes:
