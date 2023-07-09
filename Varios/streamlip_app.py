@@ -20,8 +20,12 @@ def main():
     pages[page]()
 
 def show_home():
-    st.title("Página de Inicio")
-    st.write("¡Bienvenido a la página de inicio!")
+    st.title ("Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
+	st.markdown(
+  	"""Avance 3: Modelos predictivos con aprendizaje automático
+  	### Integrantes:
+  	- Rivera Cumpa Pyerina
+  	""")
 
 def show_page1():
     st.title("Página 1")
