@@ -27,12 +27,8 @@ def show_home():
         st.image("descarga.png")
     with col2:
         st.header("Hola mundo")
-
-    st.write("Este es un ejemplo de una página de inicio en Streamlit.")
-    st.write("Aquí tienes tres párrafos para mostrar contenido adicional.")
-    st.write("¡Este es el primer párrafo!")
-    st.write("¡Este es el segundo párrafo!")
-    st.write("¡Este es el tercer párrafo!")
+        st.write("Este es un ejemplo de una página de inicio en Streamlit.")
+        st.write("Aquí tienes tres párrafos para mostrar contenido adicional.")
 
 def show_page1():
     st.title("Página 1")
