@@ -249,6 +249,7 @@ def show_page3():
         
     #En este ejemplo, estamos utilizando los datos de edades para crear un gráfico de caja y bigotes.
     #El gráfico muestra la distribución de las edades mediante una caja que representa el rango intercuartil (IQR), los bigotes que muestran el rango completo de los datos y los puntos que pueden indicar valores atípicos. """
+    st.markdown("### Diagrama de cajas:")
     st.write("Distribución de edades")
     # Obtener los valores de edad
     edades = dataset['EDAD']
