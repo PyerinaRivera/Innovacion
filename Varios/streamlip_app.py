@@ -89,23 +89,21 @@ def show_page3():
     st.write("Gráfico de barras del promedio de edad por provincia de los pacientes con anemia en Cusco:")
     promedio_EP = dataset.groupby('PROVINCIA')['EDAD'].mean()
     st.bar_chart(promedio_EP)
-
- # Conteo de los datos por provincia
+    
+    # Conteo de los datos por provincia
     st.write("Gráfico de barras del número de casos de anemia por provincia:")
     conteo = dataset["PROVINCIA"].value_counts()
     st.bar_chart(conteo)
     
     # Conteo de los datos por microred
     casos_por_microred = dataset['MICRORED'].value_counts()
-
-    # Crear el gráfico circular
-    fig, ax = plt.subplots(figsize=(8, 8))
-    ax.pie(casos_por_microred, labels=casos_por_microred.index, autopct='%1.1f%%')
-    ax.set_title('Distribución de casos de anemia por microred')
-    ax.axis('equal')
+    plt.figure(figsize=(8, 8))
+    plt.pie(casos_por_microred, labels=casos_por_microred.index, autopct='%1.1f%%')
+    plt.title('Distribución de casos de anemia por microred')
+    plt.axis('equal')
 
     # Mostrar el gráfico en Streamlit
-    st.pyplot(fig)
+    st.pyplot(plt)
 
 if __name__ == "__main__":
     main()
