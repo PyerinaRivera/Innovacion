@@ -118,6 +118,16 @@ def show_page3():
     promedio.plot(kind='bar')
     # Utiliza el método st.pyplot() para mostrar el gráfico en Streamlit
     st.pyplot(plt.gcf())
+
+    #GRAFICO DE BARRAS DE CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS
+    st.write("GRAFICO DE BARRAS DE CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS")
+    datos_prov = dataset[dataset['PROVINCIA'] == 'CHUMBIVILCAS']
+    promedio = datos_prov.groupby('DISTRITO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
+    plt.figure(figsize=(16,6))
+    promedio.plot(kind='bar')
+    plt.title('CANTIDAD DE CASOS POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS')
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot(plt.show())
     
     st.markdown("### Gráficos de líneas:")
     st.write("Gráfico de la evolución de casos de anemia por provincia")
@@ -149,19 +159,6 @@ def show_page3():
     plt.grid(True)
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show()) 
-
-    #Grafico ---
-    
-
-    #GRAFICO DE BARRAS DE CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS
-    st.write("GRAFICO DE BARRAS DE CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS")
-    datos_prov = dataset[dataset['PROVINCIA'] == 'CHUMBIVILCAS']
-    promedio = datos_prov.groupby('DISTRITO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
-    plt.figure(figsize=(16,6))
-    promedio.plot(kind='bar')
-    plt.title('CANTIDAD DE CASOS POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS')
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())
 
     # Grafico de promedio de casos de anemia por año y provincia
     st.write("Grafico de promedio de casos de anemia por año y provincia")
