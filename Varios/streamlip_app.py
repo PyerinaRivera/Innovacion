@@ -1,5 +1,4 @@
 import streamlit as st
-import matplotlib.pyplot as plt
 import pandas as pd
 
 # Cargar el dataset y almacenarlo en caché
@@ -101,6 +100,7 @@ def show_page3():
     
 # Conteo de los datos por microred
     casos_por_microred = dataset["MICRORED"].value_counts()
+    import matplotlib.pyplot as plt
     plt.figure(figsize=(8, 8))
     plt.pie(casos_por_microred, labels=casos_por_microred.index, autopct='%1.1f%%')
     plt.title('Distribución de casos de anemia por microred')
