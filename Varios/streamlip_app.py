@@ -82,6 +82,7 @@ def show_page2():
     # Mostrar el promedio de edad por provincia
     st.write("Promedio de edad por provincia:")
     st.write(promedio_edad_por_provincia)
+    st.write("De los resultados obtenidos se puede observar que los promedios de edad por provincia se encuentran en un rango de 20 y 30 años)
 
 def show_page3():
     st.title("Página 3")
