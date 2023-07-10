@@ -151,14 +151,13 @@ def show_page3():
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show()) 
 
-    #GRAFICO DE BARRAS DE LA CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR AÑO
-    st.write("GRAFICO DE BARRAS DE LA CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR AÑO")
+    #Grafico ---
     promedio = data_nn.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
-    plt.figure(figsize=(16,6))
+    plt.figure(figsize=(16, 6))
     promedio.plot(kind='bar')
     plt.title('CASOS POR AÑO')
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())
+    # Utiliza el método st.pyplot() para mostrar el gráfico en Streamlit
+    st.pyplot(plt.gcf())
 
     #GRAFICO DE BARRAS DE CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS
     st.write("GRAFICO DE BARRAS DE CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS")
