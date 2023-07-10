@@ -129,22 +129,22 @@ def show_page3():
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show())
 
-    # Grafico de promedio de casos de anemia por año y provincia
+    
     st.write("Grafico de promedio de casos de anemia por año y provincia")
     provincias = ['ESPINAR', 'CANAS', 'PARURO']
     # Filtrar los datos para las provincias seleccionadas
     data_provincias = dataset[dataset['PROVINCIA'].isin(provincias)]
     # Calcular los promedios de casos de anemia por año y provincia
     promedios_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].mean().unstack()
-    #Crear el gráfico de barras para los promedios
-    plt.figure(figsize=(10, 6))
-    promedios_por_anio_provincia.plot(kind='bar')
+    # Crear el gráfico de barras para los promedios
+    fig, ax = plt.subplots(figsize=(10, 6))
+    promedios_por_anio_provincia.plot(kind='bar', ax=ax)
     plt.title('Promedio de casos de anemia por año y provincia')
     plt.xlabel('Año')
     plt.ylabel('Promedio de casos')
     plt.legend(title='Provincia')
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())
+    # Utiliza el método st.pyplot() para mostrar el gráfico en Streamlit
+    st.pyplot(fig)
     
     st.markdown("### Gráficos de líneas:")
     st.write("Gráfico de la evolución de casos de anemia por provincia")
