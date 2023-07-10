@@ -88,12 +88,19 @@ def show_page3():
     st.title("Visualizar datos: ")
     dataset = load_dataset()
 
-    st.write("Los gráficos mostrados tienen el objetivo de mostrar pictoricamente los datos que se tienen en el dataset para una mejor comprensión")
+    st.write("Los gráficos presentados a continuación tienen el objetivo de mostrar pictoricamente los datos que se tienen en el dataset para una mejor comprensión")
      # Calcular el promedio de edad por provincia
     st.markdown("### Gráficos de barras:")
     st.write("Gráfico de barras del promedio de edad por provincia de los pacientes con anemia en Cusco:")
     promedio_EP = dataset.groupby('PROVINCIA')['EDAD'].mean()
     st.bar_chart(promedio_EP)
+
+ # Conteo de los datos por provincia
+    st.write("Gráfico de barras del número de casos de anemia por provincia:")
+    conteo = dataset["PROVINCIA"].value_counts()
+    st.bar_chart(conteo)
+
+
     
 
 if __name__ == "__main__":
