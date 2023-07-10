@@ -85,10 +85,13 @@ def show_page2():
     st.write("De los resultados obtenidos se puede observar que los promedios de edad por provincia se encuentran en un rango de 20 y 30 años")
 
 def show_page3():
-    st.title("Página 3")
+    st.title("Visualizar datos: ")
     dataset = load_dataset()
 
+    st.write("Los gráficos mostrados tienen el objetivo de mostrar pictoricamente los datos que se tienen en el dataset para una mejor comprensión")
      # Calcular el promedio de edad por provincia
+    st.markdown("### Gráficos de barras:")
+    st.write("Gráfico de barras del promedio de edad por provincia de los pacientes con anemia en Cusco:")
     promedio_EP = dataset.groupby('PROVINCIA')['EDAD'].mean()
     st.bar_chart(promedio_EP)
     
