@@ -247,7 +247,7 @@ def show_page3():
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show()) 
 
-    st.markdown("### Diagrama de caja:")
+    st.markdown("### Diagrama de caja y bigotes:")
     st.write("Distribución de edades")
     # Obtener los valores de edad
     edades = dataset['EDAD']
