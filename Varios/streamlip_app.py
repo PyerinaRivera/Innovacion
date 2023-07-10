@@ -30,15 +30,25 @@ def show_home():
     c2.write("- Rivera Cumpa Pyerina")
 
 def show_page1():
-    st.title("Página 1")
-    st.write("Esta es la página 1.")
-
-    st.title("Página de Inicio")
+    st.title("Carga de datos del dataset")
+    st.write("Através de la librería pandas se realiza la carga de datos de nuestro dataset")
+    st.write("import pandas as pd")
+    st.write("""@st.cache
+    def load_dataset():
+    dataset = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1' , sep=';')
+    return dataset""")
     # Cargar el dataset
+    st.markdown("## Importar librería")
+    st.markdown("## Cargar datos")
+    st.markdown("## Mostrar datos en tabla: ")
+    st.write("Cinco primeras filas: ")
+    st.write("Todos los datos: ")
     dataset = load_dataset()
     # Mostrar la tabla con los datos
     st.write("Dataset:")
     st.write(dataset)
+
+    
 
 def show_page2():
     st.title("Página 2")
