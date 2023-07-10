@@ -92,12 +92,14 @@ def show_page2():
     st.write("De los resultados obtenidos se puede observar que los promedios de edad por provincia se encuentran en un rango de 20 y 30 años")
 
      # Seleccionar las provincias a comparar
+    st.write("promedio de casos de anemia por año y provincia")
     provincias = ['ESPINAR', 'CANAS', 'PARURO']
     # Filtrar los datos para las provincias seleccionadas
     data_provincias = dataset[dataset['PROVINCIA'].isin(provincias)]
     # Calcular los promedios de casos de anemia por año y provincia
     promedios_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].mean().unstack()
     st.write(promedios_por_anio_provincia)
+    st.write("De los resultados podemos observar cuál es el promedio de casos de anemia que se registraron en cada provincia en un determinado año, por ejemplo en el año 2015 en la provincia de espirar se registraron en promedio 3.2 casos de anemia")
 
 def show_page3():
     st.title("Visualizar datos: ")
