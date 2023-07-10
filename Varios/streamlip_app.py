@@ -48,7 +48,7 @@ def show_page1():
     
     st.markdown("## Mostrar datos en tabla: ")
     st.write("Cinco primeras filas: ")
-    dataset.head(5)
+    st.dataframe(dataset.head(5))
     
     st.write("Todos los datos: ")
     dataset = load_dataset()
