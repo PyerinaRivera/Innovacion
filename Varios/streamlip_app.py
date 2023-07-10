@@ -19,6 +19,7 @@ def show_home():
     c1,c2=st.columns([3,7])
     c1.image('descarga.png', width=200)
     c2.markdown("## Modelos predictivos con aprendizaje automático")
+    c2.markdown("#### Integrantes:")
 
 def show_page1():
     st.title("Página 1")
