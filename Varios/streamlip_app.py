@@ -101,12 +101,6 @@ def show_page3():
     st.write("Gráfico de barras del número de casos de anemia por provincia:")
     conteo = dataset["PROVINCIA"].value_counts()
     st.bar_chart(conteo)
-
-    # Conteo de los datos por distrito
-    st.write("Gráfico de barras del número de casos de anemia por distrito:")
-    conteo = dataset["DISTRITO"].value_counts()
-    st.bar_chart(conteo)
-    
     
     st.write("Gráfico de barras del promedio de casos de anemia por año y provincia")
     # Seleccionar las provincias a comparar
