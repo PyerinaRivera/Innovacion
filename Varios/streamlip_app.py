@@ -101,7 +101,8 @@ def show_page3():
     st.bar_chart(conteo)
     
 # Conteo de los datos por microred
-    conteo = dataset["MICRORED"].value_counts()
+    conteo1 = dataset["MICRORED"].value_counts()
+    st.bar_chart(conteo1)
 
 if __name__ == "__main__":
     main()
