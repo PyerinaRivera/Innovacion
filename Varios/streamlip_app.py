@@ -76,6 +76,12 @@ def show_page2():
     st.write(subcategoriaD)
     st.write("Los resultados muestran que la moda de la categoría distrito es Echarate")
 
+    st.markdown("### Promedio por cartegoría:")
+    # Calcular el promedio de edad por provincia
+    promedio_edad_por_provincia = dataset.groupby("PROVINCIA")["EDAD"].mean()
+    # Mostrar el promedio de edad por provincia
+    st.write("Promedio de edad por provincia:")
+    st.write(promedio_edad_por_provincia)
 
 def show_page3():
     st.title("Página 3")
