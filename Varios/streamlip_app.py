@@ -120,7 +120,7 @@ def show_page3():
     st.pyplot(plt.gcf())
 
     #GRAFICO DE BARRAS DE CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS
-    st.write("GRAFICO DE BARRAS DE CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS")
+    st.write("Gráfico de barras de la relación entre los casos de anemia total y casos de anemia normal por distritos de la provincia de Chumbivilcas")
     datos_prov = dataset[dataset['PROVINCIA'] == 'CHUMBIVILCAS']
     promedio = datos_prov.groupby('DISTRITO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
     plt.figure(figsize=(16,6))
