@@ -33,6 +33,26 @@ def show_page1():
     st.title("Carga de datos del dataset")
     st.write("Através de la librería pandas se realiza la carga de datos de nuestro dataset")
     
+    # Crear un contenedor con un estilo de fondo personalizado
+    contenedor = st.container()
+    contenedor.markdown(
+        """
+        <style>
+        .color-container {
+            background-color: #FF0000; /* Color de fondo personalizado */
+            padding: 10px; /* Espaciado interno */
+            border-radius: 5px; /* Bordes redondeados */
+            color: white; /* Color del texto */
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Usar el contenedor con el estilo personalizado
+    with contenedor:
+        st.write("Este es un contenedor de color personalizado.")
+    
     # Cargar el dataset
     st.markdown("## Importar librería")
     st.write("import pandas as pd")
