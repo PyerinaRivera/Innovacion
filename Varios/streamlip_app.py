@@ -1,11 +1,8 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
 
-# Cargar el dataset y almacenarlo en caché
-@st.cache
-def load_dataset():
-    dataset = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1' , sep=';')
-    return dataset
+dataset = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1' , sep=';')
 
 def main():
     # Configurar la barra de navegación
@@ -98,11 +95,17 @@ def show_page3():
     conteo = dataset["PROVINCIA"].value_counts()
     st.bar_chart(conteo)
     
-# Conteo de los datos por microred
-    casos_por_microred = dataset["MICRORED"].value_counts()
-     # Mostrar el gráfico circular
-    st.title("Casos por Microred")
-    st.plotly_chart(casos_por_microred.plot.pie())
+    # Conteo de los datos por microred
+    casos_por_microred = dataset['MICRORED'].value_counts()
+
+    # Crear el gráfico circular
+    fig, ax = plt.subplots(figsize=(8, 8))
+    ax.pie(casos_por_microred, labels=casos_por_microred.index, autopct='%1.1f%%')
+    ax.set_title('Distribución de casos de anemia por microred')
+    ax.axis('equal')
+
+    # Mostrar el gráfico en Streamlit
+    st.pyplot(fig)
 
 if __name__ == "__main__":
     main()
