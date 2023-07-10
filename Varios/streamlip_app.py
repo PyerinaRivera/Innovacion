@@ -97,13 +97,15 @@ def show_page3():
     
     # Conteo de los datos por microred
     casos_por_microred = dataset['MICRORED'].value_counts()
-    plt.figure(figsize=(8, 8))
-    plt.pie(casos_por_microred, labels=casos_por_microred.index, autopct='%1.1f%%')
-    plt.title('Distribución de casos de anemia por microred')
-    plt.axis('equal')
+    # Crear el gráfico circular
+    fig, ax = plt.subplots(figsize=(8, 8))
+    ax.pie(casos_por_microred, labels=casos_por_microred.index, autopct='%1.1f%%')
+    ax.set_title('Distribución de casos de anemia por microred')
+    ax.axis('equal')
 
     # Mostrar el gráfico en Streamlit
-    st.pyplot(plt)
+    st.pyplot(fig)
+
 
 if __name__ == "__main__":
     main()
