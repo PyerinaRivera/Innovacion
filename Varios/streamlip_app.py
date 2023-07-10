@@ -1,7 +1,11 @@
 import streamlit as st
 import pandas as pd
 
-dataset = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1' , sep=';')
+# Cargar el dataset y almacenarlo en caché
+@st.cache
+def load_dataset():
+    dataset = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1' , sep=';')
+    return dataset
 
 def main():
     # Configurar la barra de navegación
