@@ -20,6 +20,7 @@ def show_home():
     c1.image('descarga.png', width=200)
     c2.markdown("## Modelos predictivos con aprendizaje automático")
     c2.markdown("#### Integrantes:")
+    c2.write("- Rivera Cumpa Pyerina")
 
 def show_page1():
     st.title("Página 1")
