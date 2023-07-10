@@ -37,16 +37,16 @@ def show_page1():
     contenedor = st.container()
     
     # Cargar el dataset
-    st.markdown("## Importar librería")
+    st.markdown("### Importar librería")
     st.write("import pandas as pd")
     
-    st.markdown("## Cargar datos")
+    st.markdown("### Cargar datos")
     st.write("""@st.cache
     def load_dataset():
     dataset = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1' , sep=';')
     return dataset""")
 
-    st.markdown("## Mostrar datos")
+    st.markdown("### Mostrar datos")
     dataset = load_dataset()
     # Mostrar la tabla con los datos
     st.write(dataset)
@@ -54,8 +54,12 @@ def show_page1():
     
 
 def show_page2():
-    st.title("Página 2")
-    st.write("Esta es la página 2.")
+    st.title("Describir datos")
+    st.write("Importante para determinar problemas de calidad de datos")
+    dataset = load_dataset()
+    # Mostrar descripción de los datos
+    st.write("Descripción del dataset:")
+    st.write(dataset.describe())
 
 def show_page3():
     st.title("Página 3")
