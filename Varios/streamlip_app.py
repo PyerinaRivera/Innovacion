@@ -177,21 +177,7 @@ def show_page3():
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show()) 
 
-    #Este código cargará los datos del archivo CSV y luego contará el número de casos de anemia por provincia. Luego, se creará un gráfico de barras que muestra el número de casos en cada provincia.
-    #Los nombres de las provincias se mostrarán en el eje x, y el número de casos se mostrará en el eje y. El título del gráfico se establecerá como "Número de casos de anemia por provincia.
-    st.write("Grafico de número de casos de anemia por provincia")
-    # Obtener el conteo de casos por provincia
-    casos_por_provincia = dataset['PROVINCIA'].value_counts()
-    # Crear el gráfico de barras
-    plt.figure(figsize=(10, 6))
-    casos_por_provincia.plot(kind='bar')
-    plt.title('Número de casos de anemia por provincia')
-    plt.xlabel('Provincia')
-    plt.ylabel('Número de casos')
-    plt.xticks(rotation=45)
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())
-
+    st.markdown("### Gráficos circular:")
     #En este ejemplo, estamos contando el número de casos de anemia por departamento y luego creando un gráfico circular que muestra la distribución de casos entre los diferentes departamentos. Los nombres de los departamentos se utilizarán como etiquetas en el gráfico circular.
     st.write("gráfico circular número de casos de anemia por departamento")
     casos_por_departamento = dataset['DEPARTAMENTO'].value_counts()
