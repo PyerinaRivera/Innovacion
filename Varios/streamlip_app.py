@@ -108,7 +108,8 @@ def show_page3():
     # Mostrar el gráfico de barras
     st.bar_chart(promedios_por_anio_provincia)
 
-    
+    st.markdown("### Gráficos de líneas:")
+    st.write("Gráfico de la evolución de casos de anemia por provincia")
     # Seleccionar las provincias a comparar
     provincias = ['CUSCO', 'CALCA', 'ANTA']
     # Filtrar los datos para las provincias seleccionadas
@@ -116,7 +117,6 @@ def show_page3():
     # Agrupar los datos por año y provincia y calcular el total de casos por año
     casos_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].sum().unstack()
     # Mostrar el gráfico de líneas múltiples en un solo gráfico
-    st.title('Evolución de casos de anemia por provincia')
     for provincia in provincias:
         st.line_chart(casos_por_anio_provincia[provincia])
 
