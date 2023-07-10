@@ -29,6 +29,8 @@ def show_home():
     c2.markdown("## Modelos predictivos con aprendizaje automático")
     c2.markdown("#### Integrantes:")
     c2.write("- Rivera Cumpa Pyerina")
+    c2.write("- Gavilan Guevara Marius Randy")
+    c2.write("- Lopez Peña Fritz Alexander")
 
 def show_page1():
     st.title("Carga de datos del dataset")
