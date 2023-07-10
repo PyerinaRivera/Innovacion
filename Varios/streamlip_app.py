@@ -39,7 +39,7 @@ def show_page1():
         """
         <style>
         .color-container {
-            background-color: #FF0000; /* Color de fondo personalizado */
+            background-color: #940D0D; /* Color de fondo personalizado */
             padding: 10px; /* Espaciado interno */
             border-radius: 5px; /* Bordes redondeados */
             color: white; /* Color del texto */
