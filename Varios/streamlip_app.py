@@ -61,6 +61,12 @@ def show_page2():
     st.write("Descripción del dataset:")
     st.write(dataset.describe())
     st.write("De los resultados obtenemos que: El rango de edades se encuentra entre 0 y 59 años, también que el promedio es de 26,65")
+    
+    # Obtener el contenido de los datos de las subcategorías de la categoría "provincia"
+    subcategorias = dataset["provincia"].value_counts()
+    # Mostrar el contenido de los datos de las subcategorías
+    st.write("Contenido de los datos de las subcategorías de la categoría 'provincia':")
+    st.write(subcategorias)
 
 def show_page3():
     st.title("Página 3")
