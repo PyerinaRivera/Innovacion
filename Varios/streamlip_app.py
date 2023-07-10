@@ -115,8 +115,8 @@ def show_page3():
     st.write("Gráfico de barras de la relación entre los casos de anemia total y casos de anemia normal por provincia")
     promedio = dataset.groupby('PROVINCIA').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
     plt.figure(figsize=(16, 6))
-    plt.title('CANTIDAD DE CASOS Y NORMAL POR PROVINCIAS')
     promedio.plot(kind='bar')
+     plt.title('Cantidad de casos y casos normal por provincia')
     # Utiliza el método st.pyplot() para mostrar el gráfico en Streamlit
     st.pyplot(plt.gcf())
     
