@@ -101,9 +101,8 @@ def show_page3():
 # Conteo de los datos por microred
     casos_por_microred = dataset["MICRORED"].value_counts()
      # Mostrar el gráfico circular
-    st.title("Casos de Anemia por Microred")
-    for microred in casos_anemia_por_microred.items():
-        st.write(f"{row['MICRORED']}: {row['casos_por_microred']} casos")
+    st.title("Casos por Microred")
+    st.plotly_chart(casos_por_microred.plot.pie())
 
 if __name__ == "__main__":
     main()
