@@ -179,7 +179,7 @@ def show_page3():
 
     st.markdown("### Gráficos circular:")
     #En este ejemplo, estamos contando el número de casos de anemia por departamento y luego creando un gráfico circular que muestra la distribución de casos entre los diferentes departamentos. Los nombres de los departamentos se utilizarán como etiquetas en el gráfico circular.
-    st.write("gráfico circular número de casos de anemia por año")
+    st.write("Gráfico circular número de casos de anemia por año")
     casos_por_año = dataset['ANIO'].value_counts()
     # Crear el gráfico circular
     plt.figure(figsize=(8, 8))
@@ -191,7 +191,7 @@ def show_page3():
 
     #En este ejemplo, estamos contando el número de casos de anemia por microred y creando un gráfico circular que muestra la distribución de casos entre las microredes
     # Obtener el conteo de casos por microred
-    st.write("gráfico circular número de casos de anemia por microred")
+    st.write("Gráfico circular número de casos de anemia por microred")
     casos_por_microred = dataset['MICRORED'].value_counts()
     # Crear el gráfico circular
     plt.figure(figsize=(15,15))
@@ -201,10 +201,12 @@ def show_page3():
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show())
 
+    
     #En este ejemplo, agrupamos los datos por provincia y calculamos el número total de casos de anemia y el promedio de edad de los casos en cada provincia. Luego, ordenamos las provincias por el número total de casos en orden descendente.
     #Creamos un gráfico de barras agrupadas donde las barras representan el número total de casos de anemia por provincia. Además, agregamos una línea punteada que representa el promedio de edad de los casos en cada provincia.
     #El eje y izquierdo corresponde al número de casos, y el eje y derecho corresponde al promedio de edad. Utilizamos colores diferentes para cada eje y ajustamos los parámetros para mostrar las etiquetas de las provincias de forma adecuada. """
-    st.write("Número total de casos y promedio de edad por provincia")
+    st.markdown("### Gráfico de categoría múltiple:")
+    st.write("Gráfico de número total de casos y promedio de edad por provincia")
     # Agrupar los datos por provincia y calcular el número total de casos y el promedio de edad
     datos_provincia = dataset.groupby('PROVINCIA').agg({'CASOS': 'sum', 'EDAD': 'mean'})
     # Ordenar las provincias por el número total de casos en orden descendente
