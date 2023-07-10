@@ -1,10 +1,5 @@
 import streamlit as st
 
-st.set_page_config(
-    page_title="Avance 3",
-    page_icon="💻",
-)
-
 def main():
     # Configurar la barra de navegación
     st.sidebar.title("Navegación")
@@ -20,15 +15,19 @@ def main():
     pages[page]()
 
 def show_home():
-    st.title("Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
+    st.title("Página de Inicio")
 
     col1, col2 = st.beta_columns([1, 2])
     with col1:
-        st.image("descarga.png")
+        st.image("descarga.png", caption="Descripción de la imagen")
     with col2:
         st.header("Hola mundo")
-        st.write("Este es un ejemplo de una página de inicio en Streamlit.")
-        st.write("Aquí tienes tres párrafos para mostrar contenido adicional.")
+
+    st.write("Este es un ejemplo de una página de inicio en Streamlit.")
+    st.write("Aquí tienes tres párrafos para mostrar contenido adicional.")
+    st.write("¡Este es el primer párrafo!")
+    st.write("¡Este es el segundo párrafo!")
+    st.write("¡Este es el tercer párrafo!")
 
 def show_page1():
     st.title("Página 1")
