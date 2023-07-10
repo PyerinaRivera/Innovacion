@@ -87,16 +87,11 @@ def show_page2():
 
 def show_page3():
     st.title("Página 3")
-    st.write("Esta es la página 3.")
+    dataset = load_dataset()
 
      # Calcular el promedio de edad por provincia
-    promedio_edad_por_provincia = dataset.groupby('PROVINCIA')['EDAD'].mean()
-    # Crear el gráfico de barras
-    plt.figure(figsize=(16, 6))
-    promedio_edad_por_provincia.plot(kind='bar')
-    plt.title('PROMEDIO DE EDAD POR PROVINCIAS')
-    # Mostrar el gráfico
-    st.pyplot(plt)
+    promedio_EP = dataset.groupby('PROVINCIA')['EDAD'].mean()
+    st.bar_chart(promedio_EP)
     
 
 if __name__ == "__main__":
