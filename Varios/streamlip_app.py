@@ -128,6 +128,23 @@ def show_page3():
     plt.title('CANTIDAD DE CASOS POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS')
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show())
+
+    # Grafico de promedio de casos de anemia por año y provincia
+    st.write("Grafico de promedio de casos de anemia por año y provincia")
+    provincias = ['ESPINAR', 'CANAS', 'PARURO']
+    # Filtrar los datos para las provincias seleccionadas
+    data_provincias = dataset[dataset['PROVINCIA'].isin(provincias)]
+    # Calcular los promedios de casos de anemia por año y provincia
+    promedios_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].mean().unstack()
+    #Crear el gráfico de barras para los promedios
+    plt.figure(figsize=(10, 6))
+    promedios_por_anio_provincia.plot(kind='bar')
+    plt.title('Promedio de casos de anemia por año y provincia')
+    plt.xlabel('Año')
+    plt.ylabel('Promedio de casos')
+    plt.legend(title='Provincia')
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot(plt.show())
     
     st.markdown("### Gráficos de líneas:")
     st.write("Gráfico de la evolución de casos de anemia por provincia")
@@ -160,22 +177,6 @@ def show_page3():
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show()) 
 
-    # Grafico de promedio de casos de anemia por año y provincia
-    st.write("Grafico de promedio de casos de anemia por año y provincia")
-    provincias = ['ESPINAR', 'CANAS', 'PARURO']
-    # Filtrar los datos para las provincias seleccionadas
-    data_provincias = dataset[dataset['PROVINCIA'].isin(provincias)]
-    # Calcular los promedios de casos de anemia por año y provincia
-    promedios_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].mean().unstack()
-    #Crear el gráfico de barras para los promedios
-    plt.figure(figsize=(10, 6))
-    promedios_por_anio_provincia.plot(kind='bar')
-    plt.title('Promedio de casos de anemia por año y provincia')
-    plt.xlabel('Año')
-    plt.ylabel('Promedio de casos')
-    plt.legend(title='Provincia')
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())
     #Este código cargará los datos del archivo CSV y luego contará el número de casos de anemia por provincia. Luego, se creará un gráfico de barras que muestra el número de casos en cada provincia.
     #Los nombres de las provincias se mostrarán en el eje x, y el número de casos se mostrará en el eje y. El título del gráfico se establecerá como "Número de casos de anemia por provincia.
     st.write("Grafico de número de casos de anemia por provincia")
