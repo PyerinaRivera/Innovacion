@@ -179,12 +179,12 @@ def show_page3():
 
     st.markdown("### Gráficos circular:")
     #En este ejemplo, estamos contando el número de casos de anemia por departamento y luego creando un gráfico circular que muestra la distribución de casos entre los diferentes departamentos. Los nombres de los departamentos se utilizarán como etiquetas en el gráfico circular.
-    st.write("gráfico circular número de casos de anemia por departamento")
-    casos_por_departamento = dataset['DEPARTAMENTO'].value_counts()
+    st.write("gráfico circular número de casos de anemia por año")
+    casos_por_año = dataset['ANIO'].value_counts()
     # Crear el gráfico circular
     plt.figure(figsize=(8, 8))
-    plt.pie(casos_por_departamento, labels=casos_por_departamento.index, autopct='%1.1f%%')
-    plt.title('Distribución de casos de anemia por departamento')
+    plt.pie(casos_por_año, labels=casos_por_año.index, autopct='%1.1f%%')
+    plt.title('Distribución de casos de anemia por año')
     plt.axis('equal')
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show())
