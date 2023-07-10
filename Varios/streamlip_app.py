@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
 
 dataset = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1' , sep=';')
 
@@ -98,10 +98,11 @@ def show_page3():
     # Conteo de los datos por microred
     casos_por_microred = dataset['MICRORED'].value_counts()
     # Crear el gráfico circular
-    fig, ax = plt.subplots(figsize=(8, 8))
-    ax.pie(casos_por_microred, labels=casos_por_microred.index, autopct='%1.1f%%')
-    ax.set_title('Distribución de casos de anemia por microred')
-    ax.axis('equal')
+    pie_chart=px.pie(casos_por_microred,
+                     tittle='Casos de anemia por microred',
+                     values='Microred',
+                     names='EPS')
+    st.plotly_chart(pie_chart)
 
     # Mostrar el gráfico en Streamlit
     st.pyplot(fig)
