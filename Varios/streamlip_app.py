@@ -81,7 +81,7 @@ def show_page2():
     subcategoriaA = dataset["ANIO"].value_counts()
     st.write("Categoría año: ")
     st.write(subcategoriaA)
-    st.write("Los resultados muestran que la moda de la categoría año es Echarate")
+    st.write("Los resultados muestran que la moda de la categoría año es 2019")
 
     st.markdown("### Promedio por cartegoría:")
     # Calcular el promedio de edad por provincia
@@ -90,6 +90,14 @@ def show_page2():
     st.write("Promedio de edad por provincia:")
     st.write(promedio_edad_por_provincia)
     st.write("De los resultados obtenidos se puede observar que los promedios de edad por provincia se encuentran en un rango de 20 y 30 años")
+
+     # Seleccionar las provincias a comparar
+    provincias = ['ESPINAR', 'CANAS', 'PARURO']
+    # Filtrar los datos para las provincias seleccionadas
+    data_provincias = dataset[dataset['PROVINCIA'].isin(provincias)]
+    # Calcular los promedios de casos de anemia por año y provincia
+    promedios_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].mean().unstack()
+    st.write(promedios_por_anio_provincia)
 
 def show_page3():
     st.title("Visualizar datos: ")
