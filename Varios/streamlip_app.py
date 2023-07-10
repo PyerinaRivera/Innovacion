@@ -124,6 +124,32 @@ def show_page3():
     for provincia in provincias:
         st.line_chart(casos_por_anio_provincia[provincia])
 
+    
+     #""" En este ejemplo, seleccionamos las provincias que queremos comparar y filtramos los datos del DataFrame original para incluir solo esas provincias. Luego, agrupamos los datos por año y provincia, y calculamos el total de casos de anemia por año para cada provincia.
+    #Después, creamos un gráfico de líneas múltiples donde cada línea representa la evolución de casos de anemia en una provincia específica a lo largo de los años. """
+    st.write("Grafíco de líneas unificado de casos de anemia en la provincia Cusco, Calca y Anta")
+    # Seleccionar las provincias a comparar
+    provincias = ['CUSCO', 'CALCA', 'ANTA']
+    # Filtrar los datos para las provincias seleccionadas
+    data_provincias = dataset[dataset['PROVINCIA'].isin(provincias)]
+    # Agrupar los datos por año y provincia y calcular el total de casos por año
+    casos_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].sum().unstack()
+    # Crear el gráfico de líneas múltiples
+    plt.figure(figsize=(10, 6))
+    for provincia in provincias:
+        plt.plot(casos_por_anio_provincia.index, casos_por_anio_provincia[provincia], marker='o', label=provincia)
+    plt.title('Evolución de casos de anemia por provincia')
+    plt.xlabel('Año') 
+    plt.ylabel('Total de casos')
+    plt.legend()
+    plt.grid(True)
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot(plt.show()) 
+
+
+
+    
+
      #mostrar datos 
     data_nn =dataset.dropna(subset=['PROVINCIA', 'DISTRITO'])
     st.write(data_nn.isnull().sum())
@@ -250,29 +276,7 @@ def show_page3():
     plt.xticks(rotation=45, ha='right')
     plt.title('Número total de casos y promedio de edad por provincia')
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())
-
-
-    #""" En este ejemplo, seleccionamos las provincias que queremos comparar y filtramos los datos del DataFrame original para incluir solo esas provincias. Luego, agrupamos los datos por año y provincia, y calculamos el total de casos de anemia por año para cada provincia.
-    #Después, creamos un gráfico de líneas múltiples donde cada línea representa la evolución de casos de anemia en una provincia específica a lo largo de los años. """
-    st.write("Evolución de casos de anemia por provincia")
-    # Seleccionar las provincias a comparar
-    provincias = ['CUSCO', 'CALCA', 'ANTA']
-    # Filtrar los datos para las provincias seleccionadas
-    data_provincias = dataset[dataset['PROVINCIA'].isin(provincias)]
-    # Agrupar los datos por año y provincia y calcular el total de casos por año
-    casos_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].sum().unstack()
-    # Crear el gráfico de líneas múltiples
-    plt.figure(figsize=(10, 6))
-    for provincia in provincias:
-        plt.plot(casos_por_anio_provincia.index, casos_por_anio_provincia[provincia], marker='o', label=provincia)
-    plt.title('Evolución de casos de anemia por provincia')
-    plt.xlabel('Año') 
-    plt.ylabel('Total de casos')
-    plt.legend()
-    plt.grid(True)
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())  
+    st.pyplot(plt.show()) 
 
 
     #En este ejemplo, estamos utilizando los datos de edad, casos normales y casos totales para crear un gráfico de dispersión tridimensional. Cada punto en el gráfico representa una combinación de edad, casos normales y casos totales."""
