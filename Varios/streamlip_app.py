@@ -31,7 +31,8 @@ def show_home():
     c2.write("- Rivera Cumpa Pyerina")
     c2.write("- Gavilan Guevara Marius Randy")
     c2.write("- Lopez Peña Fritz Alexander")
-
+    c2.write("- Moron Espinoza Luis Fernando")
+    c2.write("- Almanacin Soncco Edgar")
 def show_page1():
     st.title("Carga de datos del dataset")
     st.write("Através de la librería pandas se realiza la carga de datos de nuestro dataset")
