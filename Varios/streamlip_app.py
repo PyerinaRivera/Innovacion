@@ -22,9 +22,9 @@ def main():
     pages[page]()
 
 def show_home():
-    st.title("Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
+    st.title("Casos de Anemia por Edades entre los años 2010 - 2020 en la Region de Cusco")
     c1,c2=st.columns([3,7])
-    c1.image('descarga.png', width=200)
+    c1.image('cuscof.jpg', width=200)
     c2.markdown("## Modelos predictivos con aprendizaje automático")
     c2.markdown("#### Integrantes:")
     c2.write("- Rivera Cumpa Pyerina")
