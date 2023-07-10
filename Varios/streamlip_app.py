@@ -117,8 +117,7 @@ def show_page3():
     casos_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].sum().unstack()
     # Mostrar el gráfico de líneas múltiples en un solo gráfico
     st.title('Evolución de casos de anemia por provincia')
-    for provincia in provincias:
-        st.line_chart(casos_por_anio_provincia[provincia])
+    st.line_chart(casos_por_anio_provincia[provincia])
     
 if __name__ == "__main__":
     main()
