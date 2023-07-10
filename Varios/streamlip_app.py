@@ -104,16 +104,6 @@ def show_page3():
 # Conteo de los datos por microred
     conteo = dataset["MICRORED"].value_counts()
 
-    # Crear el gráfico circular
-    fig = px.pie(casos_AM, values="conteo", names="MICRORED", title="Casos de Anemia por Microred")
-
-    # Mostrar el gráfico
-    st.plotly_chart(fig)
-
-
-
-    
-
 if __name__ == "__main__":
     main()
 
