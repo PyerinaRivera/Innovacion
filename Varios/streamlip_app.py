@@ -275,6 +275,9 @@ def show_page3():
     plt.xlabel('Edad')
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show()) 
+
+
+
 def show_page4():
     st.title("Casos de Anemia por Edades entre los años 2010 - 2020 en la Region de Cusco [Gobierno Regional Cusco]")
     df = pd.DataFrame(
