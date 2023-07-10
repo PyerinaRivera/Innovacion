@@ -102,12 +102,11 @@ def show_page3():
     conteo = dataset["PROVINCIA"].value_counts()
     st.bar_chart(conteo)
 
-    #muestra el numero de casos por distrito
-    st.write("Número de casos por distrito")
-    plt.figure(figsize=(20,10))
-    plt.bar(data_nn['DISTRITO'].unique(),dataset['DISTRITO'].value_counts())
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())
+    # Conteo de los datos por distrito
+    st.write("Gráfico de barras del número de casos de anemia por distrito:")
+    conteo = dataset["DISTRITO"].value_counts()
+    st.bar_chart(conteo)
+    
     
     st.write("Gráfico de barras del promedio de casos de anemia por año y provincia")
     # Seleccionar las provincias a comparar
