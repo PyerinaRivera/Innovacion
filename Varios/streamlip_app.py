@@ -100,12 +100,10 @@ def show_page3():
     
 # Conteo de los datos por microred
     casos_por_microred = dataset["MICRORED"].value_counts()
-    plt.figure(figsize=(8, 8))
-    plt.pie(casos_por_microred, labels=casos_por_microred.index, autopct='%1.1f%%')
-    plt.title('Distribución de casos de anemia por microred')
-    plt.axis('equal')
-    st.pyplot(plt)
-    
+     # Mostrar el gráfico circular
+    st.title("Casos de Anemia por Microred")
+    for i, row in casos_anemia_por_microred.iterrows():
+        st.write(f"{row['MICRORED']}: {row['casos_por_microred']} casos")
 
 if __name__ == "__main__":
     main()
