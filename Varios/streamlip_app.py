@@ -1,4 +1,11 @@
 import streamlit as st
+import pandas as pd
+
+# Cargar el dataset y almacenarlo en caché
+@st.cache
+def load_dataset():
+    dataset = pd.read_csv("")
+    return dataset
 
 def main():
     # Configurar la barra de navegación
