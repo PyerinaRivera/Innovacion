@@ -40,6 +40,13 @@ def show_page2():
 def show_page3():
     st.title("Página 3")
     st.write("Esta es la página 3.")
+     # Cargar el dataset
+    dataset = load_dataset()
+
+    # Mostrar la tabla con los datos
+    st.write("Tabla del dataset:")
+    st.dataframe(dataset)
+    
 
 if __name__ == "__main__":
     main()
