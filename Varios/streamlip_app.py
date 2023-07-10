@@ -35,23 +35,6 @@ def show_page1():
     
     # Crear un contenedor con un estilo de fondo personalizado
     contenedor = st.container()
-    contenedor.markdown(
-        """
-        <style>
-        .color-container {
-            background-color: #940D0D; /* Color de fondo personalizado */
-            padding: 10px; /* Espaciado interno */
-            border-radius: 5px; /* Bordes redondeados */
-            color: white; /* Color del texto */
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Usar el contenedor con el estilo personalizado
-    with contenedor:
-        st.write("Este es un contenedor de color personalizado.")
     
     # Cargar el dataset
     st.markdown("## Importar librería")
@@ -65,6 +48,8 @@ def show_page1():
     
     st.markdown("## Mostrar datos en tabla: ")
     st.write("Cinco primeras filas: ")
+    st.write(dataset.head(5))
+    
     st.write("Todos los datos: ")
     dataset = load_dataset()
     # Mostrar la tabla con los datos
