@@ -16,6 +16,7 @@ def main():
         "Cargar": show_page1,
         "Describir": show_page2,
         "Visualizar": show_page3
+        "Diccionario": show_page4
     }
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
@@ -274,7 +275,28 @@ def show_page3():
     plt.xlabel('Edad')
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show()) 
-
+def show_page4():
+    st.title("Casos de Anemia por Edades entre los años 2010 - 2020 en la Region de Cusco [Gobierno Regional Cusco]")
+    df = pd.DataFrame(
+    [
+        {"Variable": "DEPARTAMENTO", "Descripcion": "Nombre del departamento de ubicación del Gobierno Regional de Cusco", "Tipo de dato":"Texto", "Tamaño":30,},
+        {"Variable": "PROVINCIA", "Descripcion": "Nombre de la provincia de ubicación del Gobierno Regional de Cusco", "Tipo de dato":"Texto", "Tamaño":30,},
+        {"Variable": "DISTRITO", "Descripcion": "Nombre del distrito de ubicación del Gobierno Regional de Cusco", "Tipo de dato":"Texto", "Tamaño":30,},
+        {"Variable": "RED", "Descripcion": "Nombre de la red asistencial según organización del Ministerio de Salud", "Tipo de dato":"Texto", "Tamaño":100,},
+        {"Variable": "MICRORED", "Descripcion": "Nombre de la Micro red asistencial de la red de salud", "Tipo de dato":"Texto", "Tamaño":100,},
+        {"Variable": "COD_EESS", "Descripcion": "Codigo del Establecimiento de Salud", "Tipo de dato":"Numérico", "Tamaño":10,},
+        {"Variable": "EESS", "Descripcion": "Nombre del Establecimiento de Salud", "Tipo de dato":"Texto", "Tamaño":100,},
+        {"Variable": "EDAD", "Descripcion": "Edad del grupo de personas diagnosticadas", "Tipo de dato":"Numérico", "Tamaño":3,},
+        {"Variable": "AÑO", "Descripcion": "Año de recopilacion de la informacion", "Tipo de dato":"Numérico", "Tamaño":4,},
+        {"Variable": "CASOS", "Descripcion": "Numero de casos con anemia por debajo del indador de salud", "Tipo de dato":"Numérico", "Tamaño":5,},
+        {"Variable": "NORMAL", "Descripcion": "Numero de casos en condiciones normales (sin anemia)", "Tipo de dato":"Numérico", "Tamaño":5,},
+        {"Variable": "TOTAL", "Descripcion": "Suma total de casos con anemia y los casos en condiciones normal", "Tipo de dato":"Numérico", "Tamaño":5,},
+        {"Variable": "FECHA_CORTE", "Descripcion": "Fecha de corte de informacion", "Tipo de dato":"Fecha", "Tamaño":8,},
+        {"Variable": "UBIGEO", "Descripcion": "Codigo de ubicación según INEI", "Tipo de dato":"Texto", "Tamaño":6,},
+        
+    ]
+    )
+    st.dataframe(df, use_container_width=True)
 
 
 if __name__ == "__main__":
