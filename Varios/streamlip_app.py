@@ -46,10 +46,6 @@ def show_page1():
     dataset = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1' , sep=';')
     return dataset""")
     
-    st.markdown("## Mostrar datos en tabla: ")
-    st.write("Cinco primeras filas: ")
-    st.dataframe(dataset.head(5))
-    
     st.write("Todos los datos: ")
     dataset = load_dataset()
     # Mostrar la tabla con los datos
