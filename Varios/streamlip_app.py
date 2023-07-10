@@ -231,6 +231,7 @@ def show_page3():
 
 
     #En este ejemplo, estamos utilizando los datos de edad, casos normales y casos totales para crear un gráfico de dispersión tridimensional. Cada punto en el gráfico representa una combinación de edad, casos normales y casos totales."""
+    st.markdown("### Diagrama de dispersión:")
     st.write("Relación entre edad, casos normales y casos totales")
     # Obtener los valores de edad, casos normales y casos totales
     edad = dataset['EDAD']
