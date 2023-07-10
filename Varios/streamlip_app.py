@@ -72,10 +72,9 @@ def show_page2():
     
     # Obtener el contenido de los datos de las subcategorías de la categoría "distrito"
     subcategoriaD = dataset["DISTRITO"].value_counts()
-    st.markdown("### Conteo por categoría:")
-    st.write("Categoría provincia: ")
+    st.write("Categoría distrito: ")
     st.write(subcategoriaD)
-    st.write("Los resultados muestran que la moda de la categoría distrito es La Convención")
+    st.write("Los resultados muestran que la moda de la categoría distrito es Echarate")
 
 
 def show_page3():
