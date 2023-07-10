@@ -94,18 +94,6 @@ def show_page3():
     st.write("Gráfico de barras del número de casos de anemia por provincia:")
     conteo = dataset["PROVINCIA"].value_counts()
     st.bar_chart(conteo)
-    
-    # Conteo de los datos por microred
-    casos_por_microred = dataset['MICRORED'].value_counts()
-    # Crear el gráfico circular
-    pie_chart=px.pie(casos_por_microred,
-                     tittle='Casos de anemia por microred',
-                     values='Microred',
-                     names='EPS')
-    st.plotly_chart(pie_chart)
-
-    # Mostrar el gráfico en Streamlit
-    st.pyplot(fig)
 
 
 if __name__ == "__main__":
