@@ -4,7 +4,7 @@ import pandas as pd
 # Cargar el dataset y almacenarlo en caché
 @st.cache
 def load_dataset():
-    dataset = pd.read_csv("")
+    dataset = pd.read_csv("Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv")
     return dataset
 
 def main():
@@ -24,7 +24,7 @@ def main():
 def show_home():
     st.title("Casos de Anemia por Edades entre los años 2010 - 2020 en la Region de Cusco")
     c1,c2=st.columns([3,7])
-    c1.image('cuscof.jpg', width=200)
+    c1.image('cusco1.jpg', width=200)
     c2.markdown("## Modelos predictivos con aprendizaje automático")
     c2.markdown("#### Integrantes:")
     c2.write("- Rivera Cumpa Pyerina")
