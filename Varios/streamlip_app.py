@@ -102,7 +102,7 @@ def show_page3():
     casos_por_microred = dataset["MICRORED"].value_counts()
      # Mostrar el gráfico circular
     st.title("Casos de Anemia por Microred")
-    for i, row in casos_anemia_por_microred.iterrows():
+    for microred in casos_anemia_por_microred.items():
         st.write(f"{row['MICRORED']}: {row['casos_por_microred']} casos")
 
 if __name__ == "__main__":
