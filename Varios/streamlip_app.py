@@ -15,10 +15,10 @@ def main():
     pages[page]()
 
 def show_home():
-    st.title("Página de Inicio")
+    st.title("Dataset: Consumo energético de clientes Hidrandina [Distriliuz - DLZ]")
     c1,c2=st.columns([3,7])
     c1.image('descarga.png', width=200)
-    c2.write("Hola")
+    c2.markdown("## Modelos predictivos con aprendizaje automático")
 
 def show_page1():
     st.title("Página 1")
