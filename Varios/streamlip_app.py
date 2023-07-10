@@ -102,6 +102,13 @@ def show_page3():
     conteo = dataset["PROVINCIA"].value_counts()
     st.bar_chart(conteo)
 
+    #muestra el numero de casos por distrito
+    st.write("Número de casos por distrito")
+    plt.figure(figsize=(20,10))
+    plt.bar(data_nn['DISTRITO'].unique(),dataset['DISTRITO'].value_counts())
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot(plt.show())
+    
     st.write("Gráfico de barras del promedio de casos de anemia por año y provincia")
     # Seleccionar las provincias a comparar
     provincias = ['ESPINAR', 'CANAS', 'PARURO']
@@ -123,10 +130,7 @@ def show_page3():
     # Mostrar el gráfico de líneas múltiples en un solo gráfico
     for provincia in provincias:
         st.line_chart(casos_por_anio_provincia[provincia])
-
-    
-     #""" En este ejemplo, seleccionamos las provincias que queremos comparar y filtramos los datos del DataFrame original para incluir solo esas provincias. Luego, agrupamos los datos por año y provincia, y calculamos el total de casos de anemia por año para cada provincia.
-    #Después, creamos un gráfico de líneas múltiples donde cada línea representa la evolución de casos de anemia en una provincia específica a lo largo de los años. """
+        
     st.write("Grafíco de líneas unificado de casos de anemia en la provincia Cusco, Calca y Anta")
     # Seleccionar las provincias a comparar
     provincias = ['CUSCO', 'CALCA', 'ANTA']
@@ -146,29 +150,7 @@ def show_page3():
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show()) 
 
-
-
     
-
-     #mostrar datos 
-    data_nn =dataset.dropna(subset=['PROVINCIA', 'DISTRITO'])
-    st.write(data_nn.isnull().sum())
-    #muestra el numero de casos por provincia
-    st.write("muestra el numero de casos por provincia")
-    plt.figure(figsize=(20,10))
-    plt.bar(data_nn['PROVINCIA'].unique(),dataset['PROVINCIA'].value_counts())
-    plt.title('numeros de caso por provincia')
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())
-
-    #GRAFICO DE BARRAS DEL PROMEDIO DE LAS EDADES DE LAS PERSONAS CON CASOS DE ANEMIA POR PROVINCIAS
-    st.write("GRAFICO DE BARRAS DEL PROMEDIO DE LAS EDADES DE LAS PERSONAS CON CASOS DE ANEMIA POR PROVINCIAS")
-    promedio = dataset.groupby('PROVINCIA')['EDAD'].mean()
-    plt.figure(figsize=(16,6))
-    promedio.plot(kind='bar')
-    plt.title('PROMEDIO DE EDAD POR PROVINCIAS')
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.pyplot(plt.show())
 
     #GRAFICO DE BARRAS DE LA CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR PROVINCIA
     st.write("GRAFICO DE BARRAS DE LA CANTIDAD DE CASOS(Numero de casos con anemia por debajo del indicador de salud) Y NORMAL(Numero de casos en condiciones normales (sin anemia)) POR PROVINCIA")
