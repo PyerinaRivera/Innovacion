@@ -51,8 +51,6 @@ def show_page1():
     # Mostrar la tabla con los datos
     st.write(dataset)
 
-    
-
 def show_page2():
     st.title("Describir datos")
     st.write("Importante para determinar problemas de calidad de datos")
