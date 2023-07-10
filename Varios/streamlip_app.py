@@ -98,6 +98,16 @@ def show_page3():
     conteo = dataset["PROVINCIA"].value_counts()
     st.bar_chart(conteo)
 
+    # Seleccionar las provincias a comparar
+    provincias = ['ESPINAR', 'CANAS', 'PARURO']
+    # Filtrar los datos para las provincias seleccionadas
+    data_provincias = dataset[dataset['PROVINCIA'].isin(provincias)]
+    # Calcular los promedios de casos de anemia por año y provincia
+    promedios_por_anio_provincia = data_provincias.groupby(['ANIO', 'PROVINCIA'])['CASOS'].mean().unstack()
+    # Mostrar el gráfico de barras
+    st.title('Promedio de casos de anemia por año y provincia')
+    st.bar_chart(promedios_por_anio_provincia)
+
 
 if __name__ == "__main__":
     main()
