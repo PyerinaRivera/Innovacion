@@ -348,11 +348,19 @@ def show_page5():
     # Cargamos el modelo previamente entrenado
     modelo_entrenado = train_model(X, y)
 
-    # Obtenemos la entrada del usuario
-    provincia_input = st.text_input("Provincia:")
-    distrito_input = st.text_input("Distrito:")
-    edad_input = st.number_input("Edad:", min_value=0, max_value=100, step=1)
-    año_input = st.number_input("Año:", min_value=dataset['ANIO'].min(), max_value=dataset['ANIO'].max(), step=1)
+    dataset = load_dataset()
+    dataset = dataset.dropna(subset=['PROVINCIA'])
+    
+    lista_Provincias = dataset['PROVINCIA'].unique()
+    parametro_Provincia = "ACOMAYO"
+    datos_x_prov = dataset[dataset['PROVINCIA'] == parametro_Provincia]
+    distrito_x_prov = datos_x_prov['DISTRITO'].unique()
+    
+    # Formulario para ingresar los datos
+    provincia_input = st.selectbox("Provincia:", lista_Provincias) 
+    distrito_input = st.selectbox("Distrito:", distrito_x_prov)
+    edad_input = st.number_input("Edad:", min_value=0, max_value=100)
+    año_input = st.number_input("Año:", min_value=2010, max_value=2030) 
 
     # Codificamos las variables categóricas de entrada usando los LabelEncoders previamente creados
     provincia_encoded = label_encoder_prov.transform([provincia_input])[0]
