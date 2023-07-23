@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import OneHotEncoder
 # Cargar el dataset y almacenarlo en caché
 @st.cache
 def load_dataset():
@@ -310,11 +314,64 @@ def train_model():
     model.fit(X, y)
     return model
     
+def entrenar_mmodelo():
+    # Cargar el dataset
+    data = load_dataset()
+    
+    # Seleccionar columnas relevantes y limpiar datos NaN
+    data = data[['ANIO', 'CASOS', 'DISTRITO', 'EDAD']].dropna()
+    
+    # Codificar la variable categórica 'DISTRITO' utilizando codificación one-hot
+    encoder = OneHotEncoder(sparse=False)
+    distrito_encoded = encoder.fit_transform(data[['DISTRITO']])
+    distrito_encoded_df = pd.DataFrame(distrito_encoded, columns=encoder.get_feature_names(['DISTRITO']))
+    
+    # Concatenar las variables codificadas con el dataset original
+    data_encoded = pd.concat([data, distrito_encoded_df], axis=1)
+    
+    # Separar datos en características (X) y etiquetas (y)
+    X = data_encoded.drop(['CASOS', 'DISTRITO'], axis=1)
+    y = data_encoded['CASOS']
+    
+    # Dividir el dataset en conjunto de entrenamiento y conjunto de prueba
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Crear el modelo de regresión lineal múltiple
+    modelo = LinearRegression()
+    
+    # Entrenar el modelo
+    modelo.fit(X_train, y_train)
+    
+    # Realizar predicciones en el conjunto de prueba
+    y_pred = modelo.predict(X_test)
+    return modelo   
+    
+modelo_entrenado = entrenar_mmodelo()
+
+def predecircasos(anio,distrito,edad):
+    anio_nuevo = anio
+    distrito_nuevo = distrito
+    edad_nueva = edad
+    
+    # Codificar el nuevo distrito utilizando la misma codificación one-hot
+    distrito_nuevo_encoded = encoder.transform([[distrito_nuevo]])
+    distrito_nuevo_encoded_df = pd.DataFrame(distrito_nuevo_encoded, columns=encoder.get_feature_names(['DISTRITO']))
+    
+    # Crear un DataFrame con los datos de predicción
+    datos_prediccion = pd.DataFrame({'ANIO': [anio_nuevo], 'EDAD': [edad_nueva]})
+    datos_prediccion = pd.concat([datos_prediccion, distrito_nuevo_encoded_df], axis=1)
+    
+    # Realizar la predicción de casos de anemia para los nuevos datos
+    casos_anemia_predichos = modelo_entrenado.predict(datos_prediccion)
+    return "Predicción de casos de anemia para el año", anio_nuevo, ", distrito", distrito_nuevo, "y edad", edad_nueva, ":", casos_anemia_predichos[0])
+    
 def obtener_distritos(parametro_Provincia):
     data = load_dataset()
     datos_x_prov = data[data['PROVINCIA'] == parametro_Provincia]
     distrito_x_prov = datos_x_prov['DISTRITO'].unique()
     return distrito_x_prov
+    
+
 
 def show_page5():
     st.title("Modelo Predictivo")
@@ -338,8 +395,9 @@ def show_page5():
 
     # Botón para realizar la predicción
     if st.button("Realizar Predicción"):
-        probabilidad_anemia = np.random.uniform(0.1, 0.9)
-        st.write(f"Probabilidad de tener anemia en {distrito_input}, {provincia_input}, {region_input} en {año_input}: {probabilidad_anemia:.2f}")
+        #probabilidad_anemia = np.random.uniform(0.1, 0.9)
+        #st.write(f"Probabilidad de tener anemia en {distrito_input}, {provincia_input}, {region_input} en {año_input}: {probabilidad_anemia:.2f}")
+        st.write(predecircasos(año_input,distrito_input,edad_input))
 
 
 if __name__ == "__main__":
