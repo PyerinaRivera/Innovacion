@@ -318,8 +318,8 @@ def preprocess_data(dataset):
     dataset['DISTRITO'] = label_encoder.fit_transform(dataset['DISTRITO'])
 
     # Dividimos el conjunto de datos en características (X) y etiquetas (y)
-    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'ANIO']]  # Ajusta el nombre de la columna 'ANIO'
-    y = dataset['ANEMIA']
+    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'AÑO']]  # Ajusta el nombre de la columna 'AÑO'
+    y = dataset['CASOS']  # Usar la columna 'CASOS' como variable objetivo
 
     return X, y
 
@@ -342,8 +342,11 @@ def obtener_distritos(parametro_Provincia):
 def show_page5():
     st.title("Modelo Predictivo")
     st.write("Ingresa los datos necesarios para realizar la predicción:")
+    
+    # Cargar el conjunto de datos
     dataset = load_dataset()
     dataset = dataset.dropna(subset=['PROVINCIA'])
+    
     lista_Provincias = dataset['PROVINCIA'].unique()
     parametro_Provincia = "ACOMAYO"
     datos_x_prov = dataset[dataset['PROVINCIA'] == parametro_Provincia]
@@ -356,12 +359,11 @@ def show_page5():
     distrito_input = st.selectbox("Distrito:", distrito_x_prov)
     
     edad_input = st.number_input("Edad:", min_value=0, max_value=100)
-    año_input = st.number_input("Año:", min_value=2023, max_value=2100)
+    año_input = st.number_input("Año:", min_value=2010, max_value=2020)
 
     # Botón para realizar la predicción
     if st.button("Realizar Predicción"):
         # Cargar y entrenar el modelo
-        dataset = load_dataset()
         X, y = preprocess_data(dataset)
         modelo_entrenado = train_model(X, y)
         
