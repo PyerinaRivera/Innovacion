@@ -321,8 +321,8 @@ def entrenar_mmodelo():
     data_nn = data.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
     data_nn = data_nn.reset_index()
     # Separar datos en características (X) y etiquetas (y)
-    X = data['ANIO'].values.reshape(-1, 1)
-    y = data['CASOS'].values
+    X = data_nn['ANIO'].values.reshape(-1, 1)
+    y = data_nn['CASOS'].values
     
     # Dividir el dataset en conjunto de entrenamiento y conjunto de prueba
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
