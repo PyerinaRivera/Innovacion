@@ -306,52 +306,36 @@ def show_page4():
     )
     st.dataframe(df, use_container_width=True)
 
-def train_model():
-    dataset = load_dataset()
-    X = dataset[['EDAD', 'AÑO']]  # Seleccionar las variables para el entrenamiento
-    y = dataset['ANEMIA']  # La variable objetivo que queremos predecir (por ejemplo, si tiene anemia o no)
-    model = LogisticRegression()  # Usar un modelo de regresión logística como ejemplo
-    model.fit(X, y)
-    return model
-    
-def entrenar_mmodelo():
-    # Cargar el dataset
-    data = load_dataset()
-    
-    data_nn = data.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
-    data_nn = data_nn.reset_index()
-    # Separar datos en características (X) y etiquetas (y)
-    X = data_nn['ANIO'].values.reshape(-1, 1)
-    y = data_nn['CASOS'].values
-    
-    # Dividir el dataset en conjunto de entrenamiento y conjunto de prueba
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
-    # Crear el modelo de regresión lineal
-    modelo = LinearRegression()
-    
-    # Entrenar el modelo
-    modelo.fit(X_train, y_train)
-    
-    # Realizar predicciones en el conjunto de prueba
-    y_pred = modelo.predict(X_test)
-    
-    return modelo   
-    
-#modelo_entrenado = entrenar_mmodelo()
+def preprocess_data(dataset):
+    # Eliminamos filas con valores faltantes en la columna 'PROVINCIA'
+    dataset = dataset.dropna(subset=['PROVINCIA'])
 
-def predecircasos(anio):
+    # Codificamos variables categóricas 'PROVINCIA' y 'DISTRITO' en representaciones numéricas
+    label_encoder = LabelEncoder()
+    dataset['PROVINCIA'] = label_encoder.fit_transform(dataset['PROVINCIA'])
+    dataset['DISTRITO'] = label_encoder.fit_transform(dataset['DISTRITO'])
+
+    # Dividimos el conjunto de datos en características (X) y etiquetas (y)
+    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'AÑO']]
+    y = dataset['ANEMIA']
+
+    return X, y
+
+def train_model(X_train, y_train):
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    return model
+
+def predecir_casos(modelo_entrenado, año):
     # Realizar predicciones para un año específico (por ejemplo, año 2025)
-    casos_anemia_predichos = modelo_entrenado.predict([[anio]])
-    return "Predicción de casos de anemia para el año", anio, ":", casos_anemia_predichos[0]
-    
+    casos_anemia_predichos = modelo_entrenado.predict([[año]])
+    return casos_anemia_predichos[0]
+
 def obtener_distritos(parametro_Provincia):
     data = load_dataset()
     datos_x_prov = data[data['PROVINCIA'] == parametro_Provincia]
     distrito_x_prov = datos_x_prov['DISTRITO'].unique()
     return distrito_x_prov
-    
-
 
 def show_page5():
     st.title("Modelo Predictivo")
@@ -374,10 +358,15 @@ def show_page5():
 
     # Botón para realizar la predicción
     if st.button("Realizar Predicción"):
-        probabilidad_anemia = np.random.uniform(0.1, 0.9)
-        st.write(f"Probabilidad de tener anemia en {distrito_input}, {provincia_input} en {año_input}: {probabilidad_anemia:.2f}")
-        #st.write(predecircasos(año_input))
-
+        # Cargar y entrenar el modelo
+        dataset = load_dataset()
+        X, y = preprocess_data(dataset)
+        modelo_entrenado = train_model(X, y)
+        
+        # Realizar predicciones utilizando el modelo entrenado
+        casos_anemia_predichos = predecir_casos(modelo_entrenado, año_input)
+        
+        st.write(f"Predicción de casos de anemia para el año {año_input}: {casos_anemia_predichos:.2f}")
 
 if __name__ == "__main__":
     main()
