@@ -364,14 +364,13 @@ def show_page5():
     distrito_x_prov = datos_x_prov['DISTRITO'].unique()
     
     # Formulario para ingresar los datos
-    region_input = st.selectbox("Región:", ("Región 1", "Región 2", "Región 3"))
     provincia_input = st.selectbox("Provincia:", lista_Provincias) 
     
     distrito_x_prov = obtener_distritos(provincia_input)
     distrito_input = st.selectbox("Distrito:", distrito_x_prov)
     
-    edad_input = st.number_input("Edad:", min_value=0, max_value=100, value=30)
-    año_input = st.number_input("Año:", min_value=2023, max_value=2100, value=2023)
+    edad_input = st.number_input("Edad:", min_value=0, max_value=100)
+    año_input = st.number_input("Año:", min_value=2023, max_value=2100)
 
     # Botón para realizar la predicción
     if st.button("Realizar Predicción"):
