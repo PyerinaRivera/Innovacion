@@ -16,7 +16,7 @@ def main():
         "Cargar": show_page1,
         "Describir": show_page2,
         "Visualizar": show_page3,
-        "Diccionario": show_page4
+        "Diccionario": show_page4,
         "Modelo Predictivo": show_page5
     }
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
