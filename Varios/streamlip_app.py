@@ -307,7 +307,6 @@ def show_page4():
     )
     st.dataframe(df, use_container_width=True)
 
-dataset = load_dataset()
 def preprocess_data(dataset):
     # Eliminamos filas con valores faltantes en la columna 'PROVINCIA'
     dataset = dataset.dropna(subset=['PROVINCIA'])
@@ -318,7 +317,7 @@ def preprocess_data(dataset):
     dataset['DISTRITO'] = label_encoder.fit_transform(dataset['DISTRITO'])
 
     # Dividimos el conjunto de datos en características (X) y etiquetas (y)
-    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'AÑO']]  # Ajusta el nombre de la columna 'AÑO'
+    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'ANIO']]  # Usar 'ANIO' en lugar de 'AÑO'
     y = dataset['CASOS']  # Usar la columna 'CASOS' como variable objetivo
 
     return X, y
@@ -359,7 +358,7 @@ def show_page5():
     distrito_input = st.selectbox("Distrito:", distrito_x_prov)
     
     edad_input = st.number_input("Edad:", min_value=0, max_value=100)
-    año_input = st.number_input("Año:", min_value=2010, max_value=2020)
+    año_input = st.number_input("Año:", min_value=2010, max_value=2020)  # Usar 'Año' en lugar de 'AÑO'
 
     # Botón para realizar la predicción
     if st.button("Realizar Predicción"):
