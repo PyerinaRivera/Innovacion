@@ -343,7 +343,7 @@ modelo_entrenado = entrenar_mmodelo()
 def predecircasos(anio):
     # Realizar predicciones para un año específico (por ejemplo, año 2025)
     casos_anemia_predichos = modelo_entrenado.predict([[anio]])
-    return "Predicción de casos de anemia para el año", anio_nuevo, ":", casos_anemia_predichos[0]
+    return "Predicción de casos de anemia para el año", anio, ":", casos_anemia_predichos[0]
     
 def obtener_distritos(parametro_Provincia):
     data = load_dataset()
