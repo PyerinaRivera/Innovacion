@@ -336,37 +336,39 @@ def predecir_casos(modelo_entrenado, provincia, distrito, edad, año):
     return casos_anemia_predichos[0]
 
 def show_page5():
-    st.title("Modelo Predictivo")
-    st.write("Ingresa los datos necesarios para realizar la predicción:")
-    
-    # Cargar el conjunto de datos
-    dataset = load_dataset()
-    dataset = dataset.dropna(subset=['PROVINCIA'])
-    
-    lista_Provincias = dataset['PROVINCIA'].unique()
-    parametro_Provincia = "ACOMAYO"
-    datos_x_prov = dataset[dataset['PROVINCIA'] == parametro_Provincia]
-    distrito_x_prov = datos_x_prov['DISTRITO'].unique()
-    
-    # Formulario para ingresar los datos
-    provincia_input = st.selectbox("Provincia:", lista_Provincias) 
-    distrito_input = st.selectbox("Distrito:", distrito_x_prov)
-    edad_input = st.number_input("Edad:", min_value=0, max_value=100)
-    año_input = st.number_input("Año:", min_value=2010, max_value=2030)  # Ajustar el límite para el año hasta 2030
+    st.title("Predicción de casos de anemia")
+    st.header("Ingrese los datos para la predicción:")
 
-    # Botón para realizar la predicción
-    if st.button("Realizar Predicción"):
-        # Cargar y entrenar el modelo
-        dataset = load_dataset()
-        X, y = preprocess_data(dataset)
-        modelo_entrenado = train_model(X, y)
-        
-        # Realizar predicciones utilizando el modelo entrenado
-        provincia_encoded = label_encoder_prov.transform([provincia_input])[0]
-        distrito_encoded = label_encoder_dist.transform([distrito_input])[0]
-        casos_anemia_predichos = predecir_casos(modelo_entrenado, provincia_encoded, distrito_encoded, edad_input, año_input)
-        
-        st.write(f"Predicción de casos de anemia para el año {año_input}: {casos_anemia_predichos:.2f}")
+    # Cargamos los datos
+    data_url = "ruta/del/archivo.csv"
+    dataset = pd.read_csv(data_url)
+
+    # Preprocesamos los datos
+    X, y = preprocess_data(dataset)
+
+    # Cargamos el modelo previamente entrenado
+    modelo_entrenado = train_model(X, y)
+
+    # Obtenemos la entrada del usuario
+    provincia_input = st.text_input("Provincia:")
+    distrito_input = st.text_input("Distrito:")
+    edad_input = st.number_input("Edad:", min_value=0, max_value=100, step=1)
+    año_input = st.number_input("Año:", min_value=dataset['ANIO'].min(), max_value=dataset['ANIO'].max(), step=1)
+
+    # Codificamos las variables categóricas de entrada usando los LabelEncoders previamente creados
+    provincia_encoded = label_encoder_prov.transform([provincia_input])[0]
+    distrito_encoded = label_encoder_dist.transform([distrito_input])[0]
+
+    # Realizamos la predicción
+    predicciones = predecir_casos(modelo_entrenado, provincia_encoded, distrito_encoded, edad_input, año_input)
+
+    # Mostramos los resultados
+    st.subheader("Resultados:")
+    st.write(f"Provincia codificada: {provincia_encoded}")
+    st.write(f"Distrito codificado: {distrito_encoded}")
+    st.write(f"Edad ingresada: {edad_input}")
+    st.write(f"Año ingresado: {año_input}")
+    st.write(f"Número predicho de casos de anemia: {predicciones}")
         
         
 if __name__ == "__main__":
