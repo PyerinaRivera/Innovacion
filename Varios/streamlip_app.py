@@ -340,8 +340,7 @@ def show_page5():
     st.header("Ingrese los datos para la predicción:")
 
     # Cargamos los datos
-    data_url = "ruta/del/archivo.csv"
-    dataset = pd.read_csv(data_url)
+    dataset = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1' , sep=';')
 
     # Preprocesamos los datos
     X, y = preprocess_data(dataset)
