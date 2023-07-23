@@ -309,15 +309,29 @@ def train_model():
     model = LogisticRegression()  # Usar un modelo de regresión logística como ejemplo
     model.fit(X, y)
     return model
+    
+def obtener_distritos(parametro_Provincia):
+    data = load_dataset()
+    datos_x_prov = data[data['PROVINCIA'] == parametro_Provincia]
+    distrito_x_prov = datos_x_prov['DISTRITO'].unique()
+    return distrito_x_prov
 
 def show_page5():
     st.title("Modelo Predictivo")
     st.write("Ingresa los datos necesarios para realizar la predicción:")
-
+    dataset = load_dataset()
+    lista_Provincias = dataset['PROVINCIA'].unique()
+    parametro_Provincia = "ACOMAYO"
+    datos_x_prov = dataset[dataset['PROVINCIA'] == parametro_Provincia]
+    distrito_x_prov = datos_x_prov['DISTRITO'].unique()
+    
     # Formulario para ingresar los datos
     region_input = st.selectbox("Región:", ("Región 1", "Región 2", "Región 3"))
-    provincia_input = st.selectbox("Provincia:", ("Provincia A", "Provincia B", "Provincia C")) 
-    distrito_input = st.selectbox("Distrito:", ("Distrito X", "Distrito Y", "Distrito Z"))
+    provincia_input = st.selectbox("Provincia:", lista_Provincias) 
+    
+    distrito_x_prov = obtener_distritos(provincia_input)
+    distrito_input = st.selectbox("Distrito:", distrito_x_prov)
+    
     edad_input = st.number_input("Edad:", min_value=0, max_value=100, value=30)
     año_input = st.number_input("Año:", min_value=2023, max_value=2100, value=2023)
 
