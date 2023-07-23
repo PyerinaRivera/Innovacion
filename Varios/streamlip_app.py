@@ -26,6 +26,7 @@ def main():
     # Mostrar la página seleccionada
      pages[page](label_encoder_prov, label_encoder_dist)
 
+
 def show_home():
     st.title("Casos de Anemia por Edades entre los años 2010 - 2020 en la Region de Cusco")
     c1,c2=st.columns([3,7])
