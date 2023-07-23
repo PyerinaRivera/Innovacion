@@ -366,7 +366,7 @@ def show_page5():
     # Realizar la predicción utilizando el modelo entrenado
     prediction = model.predict([[provincia_encoded, distrito_encoded, edad]])
 
-    st.write(f"La predicción de casos de anemia es: {prediction[0]:.2f}")
+    st.write("La predicción de casos de anemia es: {prediction[0]:.2f}")
 
 if __name__ == "__main__":
     main()
