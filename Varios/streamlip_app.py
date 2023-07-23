@@ -17,6 +17,7 @@ def main():
         "Describir": show_page2,
         "Visualizar": show_page3,
         "Diccionario": show_page4
+        "Modelo Predictivo": show_page5
     }
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
@@ -300,6 +301,24 @@ def show_page4():
     ]
     )
     st.dataframe(df, use_container_width=True)
+
+def show_page5():
+    st.title("Modelo Predictivo de Ejemplo")
+    st.write("Ingresa los datos necesarios para realizar la predicción:")
+
+    # Formulario para ingresar los datos
+    edad_input = st.number_input("Edad:", min_value=0, max_value=100, value=30)
+    genero_input = st.selectbox("Género:", ("Hombre", "Mujer"))
+
+    # Botón para realizar la predicción
+    if st.button("Realizar Predicción"):
+        # Lógica del modelo predictivo (ejemplo de predicción aleatoria)
+        if genero_input == "Hombre":
+            probabilidad_anemia = np.random.uniform(0.1, 0.5)
+        else:
+            probabilidad_anemia = np.random.uniform(0.5, 0.9)
+
+        st.write(f"Probabilidad de tener anemia: {probabilidad_anemia:.2f}")
 
 
 if __name__ == "__main__":
