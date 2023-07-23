@@ -318,8 +318,8 @@ def preprocess_data(dataset):
     dataset['DISTRITO'] = label_encoder_dist.fit_transform(dataset['DISTRITO'])
 
     # Dividimos el conjunto de datos en características (X) y etiquetas (y)
-    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'ANIO']]  # Ajusta el nombre de la columna 'ANIO'
-    y = dataset['ANEMIA']
+    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'ANIO']]
+    y = dataset['CASOS']  # Utilizamos la columna 'CASOS' como etiqueta (esto asume que 'CASOS' es el número de casos de anemia)
 
     return X, y
 
