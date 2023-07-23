@@ -372,7 +372,7 @@ def show_page5():
 
 def entrenar_mmodelo():
     data_nn = load_dataset()
-    data_nn = data.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
+    data_nn = data_nn.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
     data_nn = data_nn.reset_index()
 
     X = data_nn['ANIO'].values.reshape(-1, 1)
