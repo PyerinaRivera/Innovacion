@@ -22,6 +22,7 @@ def main():
         "Visualizar": show_page3,
         "Diccionario": show_page4,
         "Modelo Predictivo": show_page5
+        "Modelo Predictivo 2": show_page6
     }
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
@@ -368,6 +369,39 @@ def show_page5():
     prediction = model.predict([provincia_encoded, distrito_encoded, edad])
 
     st.write(f"La predicción de casos de anemia es: {prediction[0]:.2f}")
+
+def entrenar_mmodelo():
+
+    data_nn = data.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
+    data_nn = data_nn.reset_index()
+
+    X = data_nn['ANIO'].values.reshape(-1, 1)
+    y = data_nn['CASOS'].values
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    modelo = LinearRegression()
+
+    modelo.fit(X_train, y_train)
+
+    y_pred = modelo.predict(X_test)
+
+    return modelo
+
+modelo_entrenado = entrenar_mmodelo()
+
+def predecircasos(anio):
+    casos_anemia_predichos = modelo_entrenado.predict([[anio]])
+    return "Predicción de casos de anemia para el año", anio, ":", casos_anemia_predichos[0]
+def show_page6():
+    st.title("Modelo Predictivo de Casos de Anemia")
+    dataset = load_dataset()
+
+    st.write("En esta sección, desarrollaremos un modelo predictivo de casos de anemia utilizando aprendizaje automático.")
+    anio = st.number_input("Ingrese el anio:", min_value=2020, max_value=2035, value=2023)
+    if st.button('Predecir'):
+        # Acciones que se ejecutarán cuando el botón sea presionado
+        st.write(predecircasos(anio))
 
 if __name__ == "__main__":
     main()
