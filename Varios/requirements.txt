@@ -3,3 +3,4 @@ pandas
 Pillow
 matplotlib
 streamlit
+scikit-learn==0.24.2
