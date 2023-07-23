@@ -315,18 +315,15 @@ def show_page5():
     st.write("Ingresa los datos necesarios para realizar la predicción:")
 
     # Formulario para ingresar los datos
-    region_input = st.selectbox("Región:", ("Región 1", "Región 2", "Región 3"))  # Agrega las opciones correspondientes
-    provincia_input = st.selectbox("Provincia:", ("Provincia A", "Provincia B", "Provincia C"))  # Agrega las opciones correspondientes
-    distrito_input = st.selectbox("Distrito:", ("Distrito X", "Distrito Y", "Distrito Z"))  # Agrega las opciones correspondientes
+    region_input = st.selectbox("Región:", ("Región 1", "Región 2", "Región 3"))
+    provincia_input = st.selectbox("Provincia:", ("Provincia A", "Provincia B", "Provincia C")) 
+    distrito_input = st.selectbox("Distrito:", ("Distrito X", "Distrito Y", "Distrito Z"))
     edad_input = st.number_input("Edad:", min_value=0, max_value=100, value=30)
     año_input = st.number_input("Año:", min_value=2023, max_value=2100, value=2023)
 
     # Botón para realizar la predicción
     if st.button("Realizar Predicción"):
-        # Lógica del modelo predictivo (ejemplo de predicción aleatoria basada en las variables seleccionadas)
-        # Aquí puedes utilizar un modelo de aprendizaje automático con datos históricos para realizar la predicción real
         probabilidad_anemia = np.random.uniform(0.1, 0.9)
-
         st.write(f"Probabilidad de tener anemia en {distrito_input}, {provincia_input}, {region_input} en {año_input}: {probabilidad_anemia:.2f}")
 
 
