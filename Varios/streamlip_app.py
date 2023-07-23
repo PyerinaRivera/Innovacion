@@ -1,12 +1,9 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import LabelEncoder
+
 # Cargar el dataset y almacenarlo en caché
 @st.cache
 def load_dataset():
@@ -322,6 +319,16 @@ def preprocess_data(dataset):
     y = dataset['CASOS']  # Utilizamos la columna 'CASOS' como etiqueta (esto asume que 'CASOS' es el número de casos de anemia)
 
     return X, y
+
+def train_model(X, y):
+    # Dividimos el conjunto de datos en entrenamiento y prueba
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Creamos y entrenamos el modelo de regresión lineal
+    modelo = LinearRegression()
+    modelo.fit(X_train, y_train)
+
+    return modelo
 
 def predecir_casos(modelo_entrenado, provincia, distrito, edad, año):
     # Realizar predicciones para las características dadas
