@@ -307,6 +307,7 @@ def show_page4():
     )
     st.dataframe(df, use_container_width=True)
 
+dataset = load_dataset()
 def preprocess_data(dataset):
     # Eliminamos filas con valores faltantes en la columna 'PROVINCIA'
     dataset = dataset.dropna(subset=['PROVINCIA'])
@@ -317,7 +318,7 @@ def preprocess_data(dataset):
     dataset['DISTRITO'] = label_encoder.fit_transform(dataset['DISTRITO'])
 
     # Dividimos el conjunto de datos en características (X) y etiquetas (y)
-    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'AÑO']]
+    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'ANIO']]  # Ajusta el nombre de la columna 'ANIO'
     y = dataset['ANEMIA']
 
     return X, y
