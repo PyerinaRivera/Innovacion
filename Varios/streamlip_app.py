@@ -327,16 +327,10 @@ def train_model(X_train, y_train):
     model.fit(X_train, y_train)
     return model
 
-def predecir_casos(modelo_entrenado, año):
-    # Realizar predicciones para un año específico (por ejemplo, año 2025)
-    casos_anemia_predichos = modelo_entrenado.predict([[año]])
+def predecir_casos(modelo_entrenado, provincia, distrito, edad, año):
+    # Realizar predicciones para las características dadas
+    casos_anemia_predichos = modelo_entrenado.predict([[provincia, distrito, edad, año]])
     return casos_anemia_predichos[0]
-
-def obtener_distritos(parametro_Provincia):
-    data = load_dataset()
-    datos_x_prov = data[data['PROVINCIA'] == parametro_Provincia]
-    distrito_x_prov = datos_x_prov['DISTRITO'].unique()
-    return distrito_x_prov
 
 def show_page5():
     st.title("Modelo Predictivo")
@@ -353,24 +347,24 @@ def show_page5():
     
     # Formulario para ingresar los datos
     provincia_input = st.selectbox("Provincia:", lista_Provincias) 
-    
-    distrito_x_prov = obtener_distritos(provincia_input)
     distrito_input = st.selectbox("Distrito:", distrito_x_prov)
-    
     edad_input = st.number_input("Edad:", min_value=0, max_value=100)
-    año_input = st.number_input("Año:", min_value=2010, max_value=2020)  # Usar 'Año' en lugar de 'AÑO'
+    año_input = st.number_input("Año:", min_value=2010, max_value=2030)  # Ajustar el límite para el año hasta 2030
 
     # Botón para realizar la predicción
     if st.button("Realizar Predicción"):
         # Cargar y entrenar el modelo
+        dataset = load_dataset()
         X, y = preprocess_data(dataset)
         modelo_entrenado = train_model(X, y)
         
         # Realizar predicciones utilizando el modelo entrenado
-        casos_anemia_predichos = predecir_casos(modelo_entrenado, año_input)
+        provincia_encoded = label_encoder.transform([provincia_input])[0]
+        distrito_encoded = label_encoder.transform([distrito_input])[0]
+        casos_anemia_predichos = predecir_casos(modelo_entrenado, provincia_encoded, distrito_encoded, edad_input, año_input)
         
         st.write(f"Predicción de casos de anemia para el año {año_input}: {casos_anemia_predichos:.2f}")
-
+        
 if __name__ == "__main__":
     main()
 
