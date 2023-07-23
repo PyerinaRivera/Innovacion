@@ -320,6 +320,7 @@ def show_page5():
     st.title("Modelo Predictivo")
     st.write("Ingresa los datos necesarios para realizar la predicción:")
     dataset = load_dataset()
+    dataset = dataset.dropna(subset=['PROVINCIA'])
     lista_Provincias = dataset['PROVINCIA'].unique()
     parametro_Provincia = "ACOMAYO"
     datos_x_prov = dataset[dataset['PROVINCIA'] == parametro_Provincia]
