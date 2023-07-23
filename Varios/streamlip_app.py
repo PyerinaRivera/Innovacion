@@ -357,6 +357,9 @@ def show_page5():
     distrito = st.selectbox("Distrito de ubicación del Gobierno Regional de Cusco:", dataset['DISTRITO'].unique())
 
     # Codificar la provincia y distrito seleccionados
+    label_encoder = LabelEncoder()
+    dataset['PROVINCIA'] = label_encoder.fit_transform(dataset['PROVINCIA'])
+    dataset['DISTRITO'] = label_encoder.fit_transform(dataset['DISTRITO'])
     provincia_encoded = label_encoder.transform([provincia])[0]
     distrito_encoded = label_encoder.transform([distrito])[0]
 
@@ -364,6 +367,9 @@ def show_page5():
     prediction = model.predict([[provincia_encoded, distrito_encoded, edad]])
 
     st.write(f"La predicción de casos de anemia es: {prediction[0]:.2f}")
+
+def main():
+    # Resto del código de la aplicación Streamlit, incluyendo las otras páginas y funciones.
 
 if __name__ == "__main__":
     main()
