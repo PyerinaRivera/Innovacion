@@ -24,7 +24,7 @@ def main():
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
     # Mostrar la página seleccionada
-    pages[page]()
+     pages[page](label_encoder_prov, label_encoder_dist)
 
 def show_home():
     st.title("Casos de Anemia por Edades entre los años 2010 - 2020 en la Region de Cusco")
