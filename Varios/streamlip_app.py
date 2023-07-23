@@ -376,7 +376,7 @@ def show_page5():
     # Botón para realizar la predicción
     if st.button("Realizar Predicción"):
         probabilidad_anemia = np.random.uniform(0.1, 0.9)
-        st.write(f"Probabilidad de tener anemia en {distrito_input}, {provincia_input}, {region_input} en {año_input}: {probabilidad_anemia:.2f}")
+        st.write(f"Probabilidad de tener anemia en {distrito_input}, {provincia_input} en {año_input}: {probabilidad_anemia:.2f}")
         #st.write(predecircasos(año_input))
 
 
