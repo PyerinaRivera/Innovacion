@@ -371,7 +371,7 @@ def show_page5():
     st.write(f"La predicción de casos de anemia es: {prediction[0]:.2f}")
 
 def entrenar_mmodelo():
-
+    data_nn = load_dataset()
     data_nn = data.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
     data_nn = data_nn.reset_index()
 
