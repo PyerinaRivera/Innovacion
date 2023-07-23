@@ -24,7 +24,7 @@ def main():
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
     # Mostrar la página seleccionada
-     pages[page](label_encoder_prov, label_encoder_dist)
+    pages[page](label_encoder_prov, label_encoder_dist)
 
 
 def show_home():
