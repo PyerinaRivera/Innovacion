@@ -368,8 +368,5 @@ def show_page5():
 
     st.write(f"La predicción de casos de anemia es: {prediction[0]:.2f}")
 
-def main():
-    # Resto del código de la aplicación Streamlit, incluyendo las otras páginas y funciones.
-
 if __name__ == "__main__":
     main()
