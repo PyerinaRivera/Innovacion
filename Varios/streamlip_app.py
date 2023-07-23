@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
 # Cargar el dataset y almacenarlo en caché
 @st.cache
@@ -297,10 +298,25 @@ def show_page4():
 def preprocess_data(dataset):
     # Eliminamos filas con valores faltantes en la columna 'PROVINCIA'
     dataset = dataset.dropna(subset=['PROVINCIA'])
+
     # Codificamos las variables categóricas 'PROVINCIA' y 'DISTRITO' utilizando LabelEncoder
     label_encoder = LabelEncoder()
     dataset['PROVINCIA'] = label_encoder.fit_transform(dataset['PROVINCIA'])
     dataset['DISTRITO'] = label_encoder.fit_transform(dataset['DISTRITO'])
+
+    # Codificamos las variables categóricas utilizando OneHotEncoder
+    onehot_encoder = OneHotEncoder()
+    encoded_columns = pd.DataFrame(onehot_encoder.fit_transform(dataset[['PROVINCIA', 'DISTRITO']]).toarray(),
+                                   columns=onehot_encoder.get_feature_names(['PROVINCIA', 'DISTRITO']))
+    dataset = pd.concat([dataset, encoded_columns], axis=1)
+    
+    # Eliminamos las columnas originales 'PROVINCIA' y 'DISTRITO'
+    dataset.drop(columns=['PROVINCIA', 'DISTRITO'], inplace=True)
+    
+    # Verificamos y manejamos valores faltantes si es necesario
+    # Por ejemplo, podemos llenar los valores faltantes con la media de la columna
+    dataset.fillna(dataset.mean(), inplace=True)
+
     return dataset
 
 def show_page5():
