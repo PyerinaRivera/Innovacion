@@ -311,7 +311,7 @@ def train_model():
     return model
 
 def show_page5():
-    st.title("Modelo Predictivo de Ejemplo")
+    st.title("Modelo Predictivo")
     st.write("Ingresa los datos necesarios para realizar la predicción:")
 
     # Formulario para ingresar los datos
