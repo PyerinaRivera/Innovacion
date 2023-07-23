@@ -312,20 +312,16 @@ def preprocess_data(dataset):
     dataset = dataset.dropna(subset=['PROVINCIA'])
 
     # Codificamos variables categóricas 'PROVINCIA' y 'DISTRITO' en representaciones numéricas
-    label_encoder = LabelEncoder()
-    dataset['PROVINCIA'] = label_encoder.fit_transform(dataset['PROVINCIA'])
-    dataset['DISTRITO'] = label_encoder.fit_transform(dataset['DISTRITO'])
+    label_encoder_prov = LabelEncoder()
+    label_encoder_dist = LabelEncoder()
+    dataset['PROVINCIA'] = label_encoder_prov.fit_transform(dataset['PROVINCIA'])
+    dataset['DISTRITO'] = label_encoder_dist.fit_transform(dataset['DISTRITO'])
 
     # Dividimos el conjunto de datos en características (X) y etiquetas (y)
-    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'ANIO']]  # Usar 'ANIO' en lugar de 'AÑO'
-    y = dataset['CASOS']  # Usar la columna 'CASOS' como variable objetivo
+    X = dataset[['PROVINCIA', 'DISTRITO', 'EDAD', 'ANIO']]  # Ajusta el nombre de la columna 'ANIO'
+    y = dataset['ANEMIA']
 
     return X, y
-
-def train_model(X_train, y_train):
-    model = LinearRegression()
-    model.fit(X_train, y_train)
-    return model
 
 def predecir_casos(modelo_entrenado, provincia, distrito, edad, año):
     # Realizar predicciones para las características dadas
@@ -359,11 +355,12 @@ def show_page5():
         modelo_entrenado = train_model(X, y)
         
         # Realizar predicciones utilizando el modelo entrenado
-        provincia_encoded = label_encoder.transform([provincia_input])[0]
-        distrito_encoded = label_encoder.transform([distrito_input])[0]
+        provincia_encoded = label_encoder_prov.transform([provincia_input])[0]
+        distrito_encoded = label_encoder_dist.transform([distrito_input])[0]
         casos_anemia_predichos = predecir_casos(modelo_entrenado, provincia_encoded, distrito_encoded, edad_input, año_input)
         
         st.write(f"Predicción de casos de anemia para el año {año_input}: {casos_anemia_predichos:.2f}")
+        
         
 if __name__ == "__main__":
     main()
