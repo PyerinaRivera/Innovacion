@@ -386,6 +386,11 @@ def show_page6():
 
 
 #NUEVO CODIGO AGREGADO
+# Limpiar el conjunto de datos y ajustar la columna de edad
+def clean_dataset(data):
+    data['EDAD'] = data['EDAD'].str.replace(' años', '').astype(int)
+    return data
+
 # Extender el conjunto de datos con años futuros
 def extend_dataset(data, future_years):
     last_year = data['ANIO'].max()
@@ -396,11 +401,11 @@ def extend_dataset(data, future_years):
 
 # Entrenar el modelo
 def entrenar_modelo(data):
-    data_nn = data.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
-    data_nn = data_nn.reset_index()
+    data_cleaned = clean_dataset(data)
 
-    X = data_nn['ANIO'].values.reshape(-1, 1)
-    y = data_nn['CASOS'].values
+    X = data_cleaned[['ANIO', 'PROVINCIA', 'EDAD']]
+    X = pd.get_dummies(X, columns=['PROVINCIA'])
+    y = data_cleaned['CASOS'].values
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -410,40 +415,56 @@ def entrenar_modelo(data):
 
     return modelo
 
-# Función para predecir casos de anemia
-def predecir_casos(modelo, anio, provincia):
-    casos_anemia_predichos = modelo.predict([[anio]])
-    return f"Predicción de casos de anemia para el año {anio} en la provincia {provincia}: {casos_anemia_predichos[0]}"
+# Función para predecir casos de anemia basado en el año, provincia y edad
+def predecir_casos(modelo, anio, provincia, edad, future_years=10):
+    X_pred = [[anio, edad]]
+    provincias_unicas = load_dataset()['PROVINCIA'].unique()
+    for prov in provincias_unicas:
+        if prov == provincia:
+            X_pred[0].append(1)
+        else:
+            X_pred[0].append(0)
+    casos_anemia_predichos = []
+    for i in range(future_years):
+        X_pred[0][0] = anio + i
+        casos_anemia_predichos.append(modelo.predict(X_pred)[0])
+    return casos_anemia_predichos
 
 # Interfaz de usuario con Streamlit
 def show_page7():
-    st.title("Modelo Predictivo de Casos de Anemia")
+    st.title("Modelo Predictivo de Casos de Anemia a 10 Años Futuros")
     dataset = load_dataset()
 
-    # Extender el conjunto de datos con 9 años futuros
-    future_years = 9
-    dataset_extended = extend_dataset(dataset, future_years)
+    st.write("En esta sección, desarrollaremos un modelo predictivo de casos de anemia utilizando el año, provincia y edad de los pacientes como variables predictoras. Realizaremos una predicción para 10 años a futuro.")
 
-    st.write("En esta sección, desarrollaremos un modelo predictivo de casos de anemia utilizando aprendizaje automático.")
-    
+    # Limpiar y ajustar la columna de edad en el conjunto de datos
+    dataset_cleaned = clean_dataset(dataset)
+
     # Obtener los años únicos del conjunto de datos
-    anios_unicos = dataset_extended['ANIO'].unique()
+    anios_unicos = dataset_cleaned['ANIO'].unique()
     anio = st.selectbox("Seleccione el año:", anios_unicos)
 
     # Obtener las provincias únicas del conjunto de datos
-    provincias_unicas = dataset['PROVINCIA'].unique()
+    provincias_unicas = dataset_cleaned['PROVINCIA'].unique()
     provincia = st.selectbox("Seleccione la provincia:", provincias_unicas)
+
+    # Obtener las edades únicas del conjunto de datos
+    edades_unicas = dataset_cleaned['EDAD'].unique()
+    edad = st.slider("Seleccione la edad:", min_value=int(edades_unicas.min()), max_value=int(edades_unicas.max()), value=int(edades_unicas.mean()))
 
     # Botón para realizar la predicción
     if st.button('Predecir'):
         # Cargar el modelo entrenado con el conjunto de datos extendido
+        dataset_extended = extend_dataset(dataset_cleaned, future_years=10)
         modelo_entrenado = entrenar_modelo(dataset_extended)
 
-        # Realizar la predicción para el año y provincia ingresados
-        resultado_prediccion = predecir_casos(modelo_entrenado, anio, provincia)
+        # Realizar la predicción para el año, provincia y edad ingresados
+        resultado_prediccion = predecir_casos(modelo_entrenado, anio, provincia, edad)
 
         # Mostrar el resultado de la predicción en la interfaz de usuario
-        st.write(resultado_prediccion)
+        st.write("Predicción de casos de anemia para los próximos 10 años:")
+        for i, prediccion in enumerate(resultado_prediccion):
+            st.write(f"Año {anio + i}: {prediccion}")
 #FIN NUEVO CODIGO AGREGADO
 
 
