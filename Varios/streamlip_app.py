@@ -145,6 +145,7 @@ def show_page3():
     plt.figure(figsize=(16, 6))
     promedio.plot(kind='bar')
     plt.title('CANTIDAD DE CASOS POR DISTRITO DE LA PROVINCIA DE CHUMBIVILCAS')
+    st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(plt.show())
 
     st.write("Gráfico de promedio de casos de anemia por año y provincia")
@@ -212,6 +213,7 @@ def show_page3():
     plt.pie(casos_por_microred, labels=casos_por_microred.index, autopct='%1.1f%%')
     plt.title('Distribución de casos de anemia por microred')
     plt.axis('equal')
+    
     st.pyplot(plt.show())
 
     # En este ejemplo, agrupamos los datos por provincia y calculamos el número total de casos de anemia y el promedio de edad de los casos en cada provincia.
