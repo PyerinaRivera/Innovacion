@@ -297,78 +297,58 @@ def show_page4():
     )
     st.dataframe(df, use_container_width=True)
 
-def preprocess_data(dataset):
-    # Eliminamos filas con valores faltantes en la columna 'PROVINCIA'
-    dataset = dataset.dropna(subset=['PROVINCIA'])
+# Cargar el conjunto de datos
+def load_dataset():
+    data = pd.read_csv('Casos_Anemia_Region_Cusco_2010_2020_Cusco.csv', encoding='latin-1', sep=';')
+    return data
 
-    # Codificamos las variables categóricas 'PROVINCIA' y 'DISTRITO' utilizando LabelEncoder
-    label_encoder = LabelEncoder()
-    dataset['PROVINCIA'] = label_encoder.fit_transform(dataset['PROVINCIA'])
-    dataset['DISTRITO'] = label_encoder.fit_transform(dataset['DISTRITO'])
+# Entrenar el modelo
+def entrenar_modelo():
+    data_nn = load_dataset()
+    data_nn = data_nn.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
+    data_nn = data_nn.reset_index()
 
-    # Codificamos las variables categóricas utilizando OneHotEncoder
-    onehot_encoder = OneHotEncoder()
-    encoded_columns = pd.DataFrame(onehot_encoder.fit_transform(dataset[['PROVINCIA', 'DISTRITO']]).toarray(),
-                                   columns=onehot_encoder.get_feature_names(['PROVINCIA', 'DISTRITO']))
-    dataset = pd.concat([dataset, encoded_columns], axis=1)
-    
-    # Eliminamos las columnas originales 'PROVINCIA' y 'DISTRITO'
-    dataset.drop(columns=['PROVINCIA', 'DISTRITO'], inplace=True)
-    
-    # Verificamos y manejamos valores faltantes si es necesario
-    # Por ejemplo, podemos llenar los valores faltantes con la media de la columna
-    dataset.fillna(dataset.mean(), inplace=True)
+    X = data_nn['ANIO'].values.reshape(-1, 1)
+    y = data_nn['CASOS'].values
 
-    return dataset
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+    modelo = LinearRegression()
+
+    modelo.fit(X_train, y_train)
+
+    return modelo
+
+# Función para predecir casos de anemia
+def predecir_casos(modelo, anio, provincia):
+    casos_anemia_predichos = modelo.predict([[anio]])
+    return f"Predicción de casos de anemia para el año {anio} en la provincia {provincia}: {casos_anemia_predichos[0]}"
+
+# Interfaz de usuario con Streamlit
 def show_page5():
     st.title("Modelo Predictivo de Casos de Anemia")
     dataset = load_dataset()
 
     st.write("En esta sección, desarrollaremos un modelo predictivo de casos de anemia utilizando aprendizaje automático.")
-    st.write("El primer paso es preparar los datos para el modelado.")
     
-    # Preprocesar los datos
-    dataset = preprocess_data(dataset)
+    # Obtener los años únicos del conjunto de datos
+    anios_unicos = dataset['ANIO'].unique()
+    anio = st.selectbox("Seleccione el año:", anios_unicos)
 
-    # Dividir los datos en características (X) y etiquetas (y)
-    X = dataset.drop(columns=['CASOS'])
-    y = dataset['CASOS']
+    # Obtener las provincias únicas del conjunto de datos
+    provincias_unicas = dataset['PROVINCIA'].unique()
+    provincia = st.selectbox("Seleccione la provincia:", provincias_unicas)
 
-    # Dividir los datos en conjuntos de entrenamiento y prueba (80% entrenamiento, 20% prueba)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    # Botón para realizar la predicción
+    if st.button('Predecir'):
+        # Cargar el modelo entrenado
+        modelo_entrenado = entrenar_modelo()
 
-    # Crear el modelo de regresión lineal
-    model = LinearRegression()
+        # Realizar la predicción para el año y provincia ingresados
+        resultado_prediccion = predecir_casos(modelo_entrenado, anio, provincia)
 
-    # Entrenar el modelo utilizando los datos de entrenamiento
-    model.fit(X_train, y_train)
-
-    # Evaluar el modelo utilizando los datos de prueba
-    score = model.score(X_test, y_test)
-
-    st.write("El modelo ha sido entrenado y evaluado con éxito.")
-
-    st.markdown("### Evaluación del Modelo")
-    st.write(f"Coeficiente de determinación (R^2): {score:.2f}")
-
-    st.markdown("### Predicciones")
-    st.write("Ingrese los datos para realizar una predicción.")
-    edad = st.number_input("Edad del grupo de personas diagnosticadas:", min_value=0, max_value=100, value=30)
-    provincia = st.selectbox("Provincia de ubicación del Gobierno Regional de Cusco:", dataset['PROVINCIA'].unique())
-    distrito = st.selectbox("Distrito de ubicación del Gobierno Regional de Cusco:", dataset['DISTRITO'].unique())
-
-    # Codificar la provincia y distrito seleccionados
-    label_encoder = LabelEncoder()
-    dataset['PROVINCIA'] = label_encoder.fit_transform(dataset['PROVINCIA'])
-    dataset['DISTRITO'] = label_encoder.fit_transform(dataset['DISTRITO'])
-    provincia_encoded = label_encoder.transform([provincia])[0]
-    distrito_encoded = label_encoder.transform([distrito])[0]
-
-    # Realizar la predicción utilizando el modelo entrenado
-    prediction = model.predict([provincia_encoded, distrito_encoded, edad])
-
-    st.write(f"La predicción de casos de anemia es: {prediction[0]:.2f}")
+        # Mostrar el resultado de la predicción en la interfaz de usuario
+        st.write(resultado_prediccion)
 
 def entrenar_mmodelo():
     data_nn = load_dataset()
