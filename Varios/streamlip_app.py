@@ -421,7 +421,7 @@ def show_page7():
     dataset = load_dataset()
 
     # Extender el conjunto de datos con 9 años futuros
-    future_years = 9
+    future_years = 7
     dataset_extended = extend_dataset(dataset, future_years)
 
     st.write("En esta sección, desarrollaremos un modelo predictivo de casos de anemia utilizando aprendizaje automático.")
