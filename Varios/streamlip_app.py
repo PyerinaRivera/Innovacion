@@ -301,7 +301,7 @@ def show_page4():
 
 def entrenar_mmodelo():
     data_nn = load_dataset()
-    data_nn = data_nn.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
+    data_nn = data_nn.groupby('ANIO').agg({'CASOS': 'sum'})
     data_nn = data_nn.reset_index()
 
     X = data_nn['ANIO'].values.reshape(-1, 1)
@@ -321,7 +321,7 @@ modelo_entrenado = entrenar_mmodelo()
 
 def predecircasos(anio):
     casos_anemia_predichos = modelo_entrenado.predict([[anio]])
-    return "Predicción de casos de anemia para el año", anio, ":", casos_anemia_predichos[0]-2000
+    return "Predicción de casos de anemia para el año", anio, ":", casos_anemia_predichos[0]
 def show_page5():
     st.title("Modelo Predictivo de Casos de Anemia")
     dataset = load_dataset()
