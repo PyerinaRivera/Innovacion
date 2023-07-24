@@ -23,6 +23,7 @@ def main():
         "Diccionario": show_page4,
         "Modelo Predictivo": show_page5,
         "Modelo Predictivo 2": show_page6,
+        "Pagina Prueba": show_page7,
     }
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
@@ -382,6 +383,68 @@ def show_page6():
     if st.button('Predecir'):
         # Acciones que se ejecutarán cuando el botón sea presionado
         st.write(predecircasos(anio))
+
+
+#NUEVO CODIGO AGREGADO
+# Extender el conjunto de datos con años futuros
+def extend_dataset(data, future_years):
+    last_year = data['ANIO'].max()
+    future_years_range = range(last_year + 1, last_year + future_years + 1)
+    future_data = pd.DataFrame({'ANIO': future_years_range})
+    data_extended = pd.concat([data, future_data], ignore_index=True)
+    return data_extended
+
+# Entrenar el modelo
+def entrenar_modelo(data):
+    data_nn = data.groupby('ANIO').agg({'CASOS': 'sum', 'NORMAL': 'sum'})
+    data_nn = data_nn.reset_index()
+
+    X = data_nn['ANIO'].values.reshape(-1, 1)
+    y = data_nn['CASOS'].values
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    modelo = LinearRegression()
+
+    modelo.fit(X_train, y_train)
+
+    return modelo
+
+# Función para predecir casos de anemia
+def predecir_casos(modelo, anio, provincia):
+    casos_anemia_predichos = modelo.predict([[anio]])
+    return f"Predicción de casos de anemia para el año {anio} en la provincia {provincia}: {casos_anemia_predichos[0]}"
+
+# Interfaz de usuario con Streamlit
+def show_page7():
+    st.title("Modelo Predictivo de Casos de Anemia")
+    dataset = load_dataset()
+
+    # Extender el conjunto de datos con 5 años futuros
+    future_years = 5
+    dataset_extended = extend_dataset(dataset, future_years)
+
+    st.write("En esta sección, desarrollaremos un modelo predictivo de casos de anemia utilizando aprendizaje automático.")
+    
+    # Obtener los años únicos del conjunto de datos
+    anios_unicos = dataset_extended['ANIO'].unique()
+    anio = st.selectbox("Seleccione el año:", anios_unicos)
+
+    # Obtener las provincias únicas del conjunto de datos
+    provincias_unicas = dataset['PROVINCIA'].unique()
+    provincia = st.selectbox("Seleccione la provincia:", provincias_unicas)
+
+    # Botón para realizar la predicción
+    if st.button('Predecir'):
+        # Cargar el modelo entrenado con el conjunto de datos extendido
+        modelo_entrenado = entrenar_modelo(dataset_extended)
+
+        # Realizar la predicción para el año y provincia ingresados
+        resultado_prediccion = predecir_casos(modelo_entrenado, anio, provincia)
+
+        # Mostrar el resultado de la predicción en la interfaz de usuario
+        st.write(resultado_prediccion)
+#FIN NUEVO CODIGO AGREGADO
 
 
 if __name__ == "__main__":
