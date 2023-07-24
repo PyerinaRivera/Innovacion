@@ -23,7 +23,6 @@ def main():
         "Diccionario": show_page4,
         "Modelo Predictivo": show_page5,
         "Modelo Predictivo 2": show_page6,
-        "Prueba 1": show_page7,
     }
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
