@@ -420,8 +420,8 @@ def show_page7():
     st.title("Modelo Predictivo de Casos de Anemia")
     dataset = load_dataset()
 
-    # Extender el conjunto de datos con 5 años futuros
-    future_years = 15
+    # Extender el conjunto de datos con 9 años futuros
+    future_years = 9
     dataset_extended = extend_dataset(dataset, future_years)
 
     st.write("En esta sección, desarrollaremos un modelo predictivo de casos de anemia utilizando aprendizaje automático.")
