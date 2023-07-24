@@ -321,7 +321,7 @@ modelo_entrenado = entrenar_mmodelo()
 
 def predecircasos(anio):
     casos_anemia_predichos = modelo_entrenado.predict([[anio]])
-    return "Predicción de casos de anemia para el año", anio, ":", casos_anemia_predichos[0]
+    return "Predicción de casos de anemia para el año", anio, ":", casos_anemia_predichos[0]-2000
 def show_page5():
     st.title("Modelo Predictivo de Casos de Anemia")
     dataset = load_dataset()
