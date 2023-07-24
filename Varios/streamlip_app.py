@@ -5,10 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-#NUEVO CODIGO AGREGADO
-import folium
-from streamlit_folium import folium_static
-#FIN NUEVO CODIGO AGREGADO
 
 # Cargar el dataset y almacenarlo en caché
 @st.cache
@@ -388,32 +384,6 @@ def show_page6():
         # Acciones que se ejecutarán cuando el botón sea presionado
         st.write(predecircasos(anio))
 
-#NUEVO CODIGO AGREGADO
-# Función para mostrar el mapa interactivo
-def show_map():
-    dataset = load_dataset()
-
-    # Crear el mapa de Folium centrado en Cusco
-    cusco_map = folium.Map(location=[-13.5226, -71.9673], zoom_start=8)
-
-    # Agregar marcadores para cada provincia en el mapa
-    for index, row in dataset.iterrows():
-        if not pd.isna(row['LATITUD']) and not pd.isna(row['LONGITUD']):
-            folium.Marker(location=[row['LATITUD'], row['LONGITUD']], popup=row['PROVINCIA']).add_to(cusco_map)
-
-    # Mostrar el mapa en la interfaz de usuario de Streamlit
-    folium_static(cusco_map)
-
-# Interfaz de usuario con Streamlit
-def show_page7():
-    st.title("Mapa de Provincias de Cusco")
-    dataset = load_dataset()
-
-    st.write("En esta sección, mostraremos un mapa interactivo de la región de Cusco con marcadores para cada provincia.")
-
-    # Mostrar el mapa interactivo
-    show_map()
-#FIN NUEVO CODIGO AGREGADO
 
 if __name__ == "__main__":
     main()
