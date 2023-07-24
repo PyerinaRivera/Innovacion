@@ -22,7 +22,8 @@ def main():
         "Visualizar": show_page3,
         "Diccionario": show_page4,
         "Modelo Predictivo": show_page5,
-        "Modelo Predictivo 2": show_page6
+        "Modelo Predictivo 2": show_page6,
+        "Prueba 1": show_page7,
     }
     page = st.sidebar.selectbox("Ir a", tuple(pages.keys()))
 
@@ -382,6 +383,33 @@ def show_page6():
     if st.button('Predecir'):
         # Acciones que se ejecutarán cuando el botón sea presionado
         st.write(predecircasos(anio))
+
+#NUEVO CODIGO AGREGADO
+# Función para mostrar el mapa interactivo
+def show_map():
+    dataset = load_dataset()
+
+    # Crear el mapa de Folium centrado en Cusco
+    cusco_map = folium.Map(location=[-13.5226, -71.9673], zoom_start=8)
+
+    # Agregar marcadores para cada provincia en el mapa
+    for index, row in dataset.iterrows():
+        if not pd.isna(row['LATITUD']) and not pd.isna(row['LONGITUD']):
+            folium.Marker(location=[row['LATITUD'], row['LONGITUD']], popup=row['PROVINCIA']).add_to(cusco_map)
+
+    # Mostrar el mapa en la interfaz de usuario de Streamlit
+    folium_static(cusco_map)
+
+# Interfaz de usuario con Streamlit
+def show_page7():
+    st.title("Mapa de Provincias de Cusco")
+    dataset = load_dataset()
+
+    st.write("En esta sección, mostraremos un mapa interactivo de la región de Cusco con marcadores para cada provincia.")
+
+    # Mostrar el mapa interactivo
+    show_map()
+#FIN NUEVO CODIGO AGREGADO
 
 if __name__ == "__main__":
     main()
