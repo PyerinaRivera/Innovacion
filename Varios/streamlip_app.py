@@ -5,7 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-from pycaret.regression import *
 
 # Cargar el dataset y almacenarlo en caché
 @st.cache
