@@ -330,7 +330,7 @@ def show_page5():
     anio = st.number_input("Ingrese el anio:", min_value=2020, max_value=2035, value=2023)
     if st.button('Predecir'):
         # Acciones que se ejecutarán cuando el botón sea presionado
-        st.write(predecircasos(anio)-2000)
+        st.write(predecircasos(anio))
 
 
 #NUEVO CODIGO AGREGADO
